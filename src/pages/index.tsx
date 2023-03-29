@@ -11,12 +11,13 @@ const Home: NextPage = () => {
 	return (
 		<>
 			<Head>
-				<title>Create T3 App</title>
+				<title>Ma Cherie</title>
 				<meta name='description' content='ma cherie sweetshop' />
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 			<main className={styles.main}>
-				<h1>some text</h1>
+				<h1>Главная</h1>
+				<p>{hello.data?.greeting}</p>
 			</main>
 		</>
 	);
