@@ -1,0 +1,103 @@
+.clientsTable {
+  width: 800px;
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  font-size: .85rem;
+  table-layout: fixed;
+}
+
+
+.clientsTable tr {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: .35em;
+}
+
+.clientsTable th,
+.clientsTable td {
+  padding: .625em;
+  text-align: center;
+  border-left: #53826b solid 2px;
+  border-right: #53826b solid 2px;
+}
+
+.clientsTable th {
+  color: #fff;
+  font-size: .6rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  background-color: #84ac98;
+  /* background-color: #a2c1b2; */
+  /* #84ac98 */
+  font-weight: 400;
+  padding: 1.35em 1.5em;
+}
+
+.clientsTable th:first-child, 
+.clientsTable td:first-child {
+  border-left: none;
+}
+
+.clientsTable th:last-child,
+.clientsTable td:last-child {
+  border-right: none;
+}
+
+.clientsTable td {
+  background-color: #cadbd2;
+}
+
+.col1, .col2, .col3 { width: 15%; }
+.col4 { width: 19%; }
+.col5 { width: 12%; }
+.col6 { width: 21%; }
+
+@media screen and (max-width: 720px) {
+  .clientsTable {
+    border: 0;
+  }
+  
+  .clientsTable thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+  /* Клиенты Дата регистрации Последняя покупка Общая сумма покупок Источник Менеджер */
+  /* 94      95               94                113                 71       128 */
+  /* 15%     15%              15%               19%                 12%      21% */
+ 
+
+  .clientsTable tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: .625em;
+  }
+  
+  .clientsTable td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: .8em;
+    text-align: right;
+  }
+  
+  .clientsTable td::before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  .clientsTable td:last-child {
+    border-bottom: 0;
+  }
+
+  .col1, .col2, .col3, .col4, .col5, .col6 { width: 100%; }
+}

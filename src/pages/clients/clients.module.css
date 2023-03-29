@@ -1,0 +1,26 @@
+.buttons {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 1em 0;
+}
+
+.buttons button {
+  margin-right: 2em;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.75em;
+}
+
+.search button {
+  margin-right: 2em;
+  margin-top: 0;
+}
+
+.search input {
+  margin-top: 0;
+  margin-bottom: 0;
+}
