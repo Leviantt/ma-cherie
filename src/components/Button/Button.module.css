@@ -1,0 +1,14 @@
+
+.button {
+  background-color: #a2c1b2;/* Green */
+  color: #fff;
+  border: none;
+  border-radius: 1em;
+  font-size: 1rem;
+  padding: .5em 1em;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  outline: none;
+}

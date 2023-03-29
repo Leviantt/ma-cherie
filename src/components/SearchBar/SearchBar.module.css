@@ -1,0 +1,24 @@
+
+.searchBar {
+  background-color: #cadcd3;
+  color: #fff;
+  width: 100%;
+  padding: .5em 1em;
+  margin: 1em 0;
+  border: none;
+  border-radius: 1rem;
+  outline: none;
+  font-size: 1.15rem;
+}
+
+.searchBar::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #fff;
+}
+
+.searchBar:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #fff;
+}
+
+.searchBar::-ms-input-placeholder { /* Microsoft Edge */
+  color: #fff;
+}
