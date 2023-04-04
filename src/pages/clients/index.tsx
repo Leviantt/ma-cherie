@@ -4,7 +4,7 @@ import { Button } from '~/components/Button';
 import type { CustomStyles } from '~/components/Button/Button';
 import { ClientsTable } from '~/components/ClientsTable';
 
-export default function clients() {
+export default function Clients() {
 	const basicButtonStyles: CustomStyles = {
 		backgroundColor: '#a2c1b2',
 		color: '#fff',

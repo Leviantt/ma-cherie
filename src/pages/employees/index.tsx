@@ -65,7 +65,7 @@ const MOCK_EMPLOYEES: Employee[] = [
 	},
 ];
 
-function Employees() {
+export default function Employees() {
 	const filterButtonStyles: CustomStyles = {
 		backgroundColor: '#fff',
 		color: '#246B49',
@@ -91,5 +91,3 @@ function Employees() {
 		</>
 	);
 }
-
-export default Employees;
