@@ -7,6 +7,7 @@
 }
 
 .navMenu {
+  z-index: 999;
   background-color: #246B49;
   color: #fff;
   width: 220px;

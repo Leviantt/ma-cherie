@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import { Navbar } from '../Navbar';
 import styles from './Layout.module.css';
 
@@ -10,9 +10,7 @@ export const Layout = ({ children }: LayoutProps) => {
 	return (
 		<>
 			<Navbar />
-			<div className={styles.content}>
-				{children}
-			</div>
+			<div className={styles.content}>{children}</div>
 		</>
 	);
 };

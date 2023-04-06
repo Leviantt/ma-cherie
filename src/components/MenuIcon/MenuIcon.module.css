@@ -28,7 +28,7 @@
   /* --hamburger-margin */
   left: 10px;
   /* --hamburger-margin */
-  z-index: 2;
+  z-index: 1000;
   cursor: pointer;
 }
 

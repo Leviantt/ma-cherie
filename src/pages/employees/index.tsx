@@ -1,9 +1,9 @@
 import styles from './employees.module.css';
 import { SearchBar } from '~/components/SearchBar';
 import { Button } from '~/components/Button';
-import type { CustomStyles } from '~/components/Button/Button';
 import { Grid } from '~/components/Grid';
 import { EmployeeCard } from '../../components/EmployeeCard';
+import type { CustomButtonStyles } from '~/types/CustomButtonStyles';
 
 interface Employee {
 	phoneNumber: string;
@@ -66,12 +66,12 @@ const MOCK_EMPLOYEES: Employee[] = [
 ];
 
 export default function Employees() {
-	const filterButtonStyles: CustomStyles = {
+	const filterButtonStyles: CustomButtonStyles = {
 		backgroundColor: '#fff',
 		color: '#246B49',
 		boxShadow: '0px 4px 4px 0px #246B4942',
 	};
-	const addButtonStyles: CustomStyles = {
+	const addButtonStyles: CustomButtonStyles = {
 		backgroundColor: '#cadcd3',
 		color: '#fff',
 	};
@@ -83,7 +83,7 @@ export default function Employees() {
 				<Button customStyles={filterButtonStyles}>Фильтр</Button>
 				<Button customStyles={addButtonStyles}>+ Добавить сотрудника</Button>
 			</div>
-			<Grid>
+			<Grid cellMinWidth={250}>
 				{MOCK_EMPLOYEES.map((employee) => (
 					<EmployeeCard key={employee.id} {...employee} />
 				))}

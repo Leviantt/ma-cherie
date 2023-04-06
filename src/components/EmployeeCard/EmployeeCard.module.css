@@ -7,6 +7,10 @@
   border-radius: 1em;
 }
 
+.card button {
+  width: 100%;
+}
+
 .infoGroup {
   display: flex;
   flex-direction: column;
@@ -33,7 +37,6 @@
 
 .identity p {
   margin: 0;
-  font-size: .8rem;
   color: #828e88;
 }
 
@@ -53,4 +56,14 @@
 .infoGroup p {
   font-weight: 500;
   margin: 0;
+}
+
+.identity h4,
+.infoGroup p {
+  font-size: .9rem;
+}
+
+.identity p,
+.infoGroup label {
+  font-size: .75rem;
 }

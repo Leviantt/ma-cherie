@@ -11,7 +11,7 @@ export const Navbar = () => {
 
 	const router = useRouter();
 	console.log(router.pathname);
-	
+
 	const toggle = () => setIsOpen((prevIsOpen) => !prevIsOpen);
 
 	return (
@@ -28,6 +28,7 @@ export const Navbar = () => {
 						<Link
 							href='/'
 							className={router.pathname === '/' ? styles.current : ''}
+							onClick={toggle}
 						>
 							<span>Главная</span>
 						</Link>
@@ -35,7 +36,10 @@ export const Navbar = () => {
 					<li key='2' className={styles.navText}>
 						<Link
 							href='/employees'
-							className={router.pathname === '/employees' ? styles.current : ''}
+							className={
+								router.pathname.startsWith('/employees') ? styles.current : ''
+							}
+							onClick={toggle}
 						>
 							<span>Сотрудники</span>
 						</Link>
@@ -44,8 +48,9 @@ export const Navbar = () => {
 						<Link
 							href='/statistics'
 							className={
-								router.pathname === '/statistics' ? styles.current : ''
+								router.pathname.startsWith('/statistics') ? styles.current : ''
 							}
+							onClick={toggle}
 						>
 							<span>Статистика</span>
 						</Link>
@@ -53,7 +58,10 @@ export const Navbar = () => {
 					<li key='4' className={styles.navText}>
 						<Link
 							href='/requests'
-							className={router.pathname === '/requests' ? styles.current : ''}
+							className={
+								router.pathname.startsWith('/requests') ? styles.current : ''
+							}
+							onClick={toggle}
 						>
 							<span>Заявки</span>
 						</Link>
@@ -61,7 +69,10 @@ export const Navbar = () => {
 					<li key='5' className={styles.navText}>
 						<Link
 							href='/clients'
-							className={router.pathname === '/clients' ? styles.current : ''}
+							className={
+								router.pathname.startsWith('/clients') ? styles.current : ''
+							}
+							onClick={toggle}
 						>
 							<span>Клиенты</span>
 						</Link>
@@ -69,7 +80,10 @@ export const Navbar = () => {
 					<li key='6' className={styles.navText}>
 						<Link
 							href='/orders'
-							className={router.pathname === '/orders' ? styles.current : ''}
+							className={
+								router.pathname.startsWith('/orders') ? styles.current : ''
+							}
+							onClick={toggle}
 						>
 							<span>Заказы</span>
 						</Link>
@@ -77,7 +91,10 @@ export const Navbar = () => {
 					<li key='7' className={styles.navText}>
 						<Link
 							href='/settings'
-							className={router.pathname === '/settings' ? styles.current : ''}
+							className={
+								router.pathname.startsWith('/settings') ? styles.current : ''
+							}
+							onClick={toggle}
 						>
 							<span>Настройки</span>
 						</Link>

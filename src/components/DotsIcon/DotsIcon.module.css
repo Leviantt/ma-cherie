@@ -1,4 +1,5 @@
 .dots {
   width: 1.5rem;
   margin-left: auto;
+  cursor: pointer;
 }
