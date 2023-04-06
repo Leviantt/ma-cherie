@@ -1,0 +1,16 @@
+.box {
+  background-color: #e3ece7;
+  padding: 1.5em;
+  display: flex;
+  flex-direction: column;
+}
+
+.statNumber {
+  font-size: 2.5rem;
+  margin-top: 0;
+  margin-bottom: 1.5em;
+}
+
+.desc {
+  margin: 0;
+}
