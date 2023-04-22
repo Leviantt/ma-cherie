@@ -1,0 +1,25 @@
+.navLink {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 0;
+}
+
+.navLink a {
+  color: #fff;
+  font-size: 1.125rem;
+  width: 100%;
+  height: 100%;
+  padding: .75em 0 .75em 2.75em;
+
+}
+
+.navLink a:hover {
+  color: #fff;
+  background-color: #61aa84;
+}
+
+.navLink a.current {
+  background-color: #fff;
+  color: var(--primary-color);
+}

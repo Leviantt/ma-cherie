@@ -1,14 +1,12 @@
-import { Button } from '~/components/Button';
+import type { NextPage } from 'next';
+
 import styles from './requests.module.css';
-import type { CustomButtonStyles } from '~/types/CustomButtonStyles';
+import { Button } from '~/components/Button';
 import { RequestsTable } from '~/components/RequestsTable';
 import { AddressLabel } from '~/components/AddressLabel';
+import { basicButtonStyles } from '~/components/Button/Button';
 
-export default function Requests() {
-	const basicButtonStyles: CustomButtonStyles = {
-		backgroundColor: '#a2c1b2',
-		color: '#fff',
-	};
+const Requests: NextPage = () => {
 	return (
 		<>
 			<h2>Заявки</h2>
@@ -32,4 +30,5 @@ export default function Requests() {
 			</div>
 		</>
 	);
-}
+};
+export default Requests;

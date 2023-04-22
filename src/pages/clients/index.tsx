@@ -1,22 +1,13 @@
+import type { NextPage } from 'next';
+
 import styles from './clients.module.css';
 import { SearchBar } from '~/components/SearchBar';
 import { Button } from '~/components/Button';
-
 import { ClientsTable } from '~/components/ClientsTable';
-import type { CustomButtonStyles } from '~/types/CustomButtonStyles';
+import { filterButtonStyles } from '~/components/Button/Button';
+import { basicButtonStyles } from '~/components/Button/Button';
 
-export default function Clients() {
-	const basicButtonStyles: CustomButtonStyles = {
-		backgroundColor: '#a2c1b2',
-		color: '#fff',
-	};
-
-	const filterButtonStyles: CustomButtonStyles = {
-		backgroundColor: '#fff',
-		color: '#246B49',
-		boxShadow: '0px 4px 4px 0px #246B4942',
-	};
-
+const Clients: NextPage = () => {
 	return (
 		<>
 			<h2>Клиенты</h2>
@@ -31,4 +22,6 @@ export default function Clients() {
 			<ClientsTable />
 		</>
 	);
-}
+};
+
+export default Clients;

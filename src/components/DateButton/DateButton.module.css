@@ -3,7 +3,7 @@
 }
 
 .day {
-  background-color: #246b49 !important;
+  background-color: var(--primary-color) !important;
   color: #fff;
 }
 

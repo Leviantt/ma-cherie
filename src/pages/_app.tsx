@@ -5,6 +5,7 @@ import { api } from '~/utils/api';
 import '~/styles/globals.css';
 
 import { Layout } from '~/components/Layout';
+import Head from 'next/head';
 
 const inter = Inter({
 	subsets: ['cyrillic', 'latin'],
@@ -12,11 +13,18 @@ const inter = Inter({
 
 const MyApp: AppType = ({ Component, pageProps }) => {
 	return (
-		<div className={inter.className}>
-			<Layout>
-				<Component {...pageProps} />
-			</Layout>
-		</div>
+		<>
+			<Head>
+				<title>Ma Cherie</title>
+				<meta name='description' content='ma cherie sweetshop' />
+				<link rel='icon' href='/favicon.ico' />
+			</Head>
+			<div className={inter.className}>
+				<Layout>
+					<Component {...pageProps} />
+				</Layout>
+			</div>
+		</>
 	);
 };
 

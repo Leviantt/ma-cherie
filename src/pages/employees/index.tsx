@@ -1,9 +1,12 @@
+import type { NextPage } from 'next';
+
 import styles from './employees.module.css';
 import { SearchBar } from '~/components/SearchBar';
 import { Button } from '~/components/Button';
 import { Grid } from '~/components/Grid';
 import { EmployeeCard } from '../../components/EmployeeCard';
-import type { CustomButtonStyles } from '~/types/CustomButtonStyles';
+import { filterButtonStyles } from '~/components/Button/Button';
+import { addButtonStyles } from '~/components/Button/Button';
 
 interface Employee {
 	phoneNumber: string;
@@ -20,7 +23,7 @@ const MOCK_EMPLOYEES: Employee[] = [
 		email: 'directormacherie@mail.ru',
 		workEmail: 'financemacherie@tut.by',
 		fullName: 'Соловьева Нина',
-		id: '8288282',
+		id: '8288281',
 		image: '/images/employee1.jpg',
 	},
 	{
@@ -36,7 +39,7 @@ const MOCK_EMPLOYEES: Employee[] = [
 		email: 'directormacherie@mail.ru',
 		workEmail: 'financemacherie@tut.by',
 		fullName: 'Соловьева Нина',
-		id: '8288282',
+		id: '8288283',
 		image: '/images/employee3.jpg',
 	},
 	{
@@ -44,7 +47,7 @@ const MOCK_EMPLOYEES: Employee[] = [
 		email: 'directormacherie@mail.ru',
 		workEmail: 'financemacherie@tut.by',
 		fullName: 'Соловьева Нина',
-		id: '8288282',
+		id: '8288284',
 		image: '/images/employee4.jpg',
 	},
 	{
@@ -52,7 +55,7 @@ const MOCK_EMPLOYEES: Employee[] = [
 		email: 'directormacherie@mail.ru',
 		workEmail: 'financemacherie@tut.by',
 		fullName: 'Соловьева Нина',
-		id: '8288282',
+		id: '8288285',
 		image: '/images/employee5.jpg',
 	},
 	{
@@ -60,21 +63,12 @@ const MOCK_EMPLOYEES: Employee[] = [
 		email: 'directormacherie@mail.ru',
 		workEmail: 'financemacherie@tut.by',
 		fullName: 'Соловьева Нина',
-		id: '8288282',
+		id: '8288286',
 		image: '/images/employee6.jpg',
 	},
 ];
 
-export default function Employees() {
-	const filterButtonStyles: CustomButtonStyles = {
-		backgroundColor: '#fff',
-		color: '#246B49',
-		boxShadow: '0px 4px 4px 0px #246B4942',
-	};
-	const addButtonStyles: CustomButtonStyles = {
-		backgroundColor: '#cadcd3',
-		color: '#fff',
-	};
+const Employees: NextPage = () => {
 	return (
 		<>
 			<h2>Сотрудники</h2>
@@ -90,4 +84,6 @@ export default function Employees() {
 			</Grid>
 		</>
 	);
-}
+};
+
+export default Employees;
