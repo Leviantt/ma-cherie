@@ -1,0 +1,11 @@
+.edit {
+  width: 1.5rem;
+  cursor: pointer;
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+}
+
+.edit.active {
+  color: #918f8f;
+}

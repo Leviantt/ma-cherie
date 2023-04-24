@@ -4,6 +4,7 @@ import type { CustomButtonStyles } from '~/types/CustomButtonStyles';
 
 type ButtonProps = {
 	customStyles: CustomButtonStyles;
+	onClick?: () => void; // TODO: remove ? sign
 	readonly children?: ReactNode;
 };
 
@@ -29,9 +30,9 @@ export const employeeButtonStyles: CustomButtonStyles = {
 };
 
 export const Button = (props: ButtonProps) => {
-	const { customStyles, children } = props;
+	const { customStyles, children, onClick } = props;
 	return (
-		<button style={customStyles} className={styles.button}>
+		<button style={customStyles} className={styles.button} onClick={onClick}>
 			{children}
 		</button>
 	);
