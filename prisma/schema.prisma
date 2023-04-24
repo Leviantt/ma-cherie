@@ -10,8 +10,69 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Example {
-    id        String   @id @default(cuid())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+model Employee {
+    id                Int      @id @default(autoincrement())
+    fullName          String
+    phone             String   @unique
+    email             String   @unique
+    workEmail         String   @unique
+    pathToAvatarPhoto String
+    position          String
+    age               Int
+    hireDate          DateTime @default(now()) @db.Date
+    clients           Client[]
+    orders            Order[]
+}
+
+model Client {
+    id               Int      @id @default(autoincrement())
+    fullName         String
+    registrationDate DateTime @db.Date
+    orders           Order[]
+    source           String   @default("unknown")
+    manager          Employee @relation(fields: [managerId], references: [id])
+    managerId        Int
+}
+
+model Dessert {
+    id          Int              @id @default(autoincrement())
+    name        String           @unique
+    price       Decimal
+    description String           @default("")
+    orders      DessertsOrders[]
+}
+
+model Order {
+    id             Int              @id @default(autoincrement())
+    createdAt      DateTime         @default(now())
+    name           String
+    description    String           @default("")
+    client         Client           @relation(fields: [clientId], references: [id])
+    clientId       Int
+    totalPrice     Decimal
+    deliveryMethod String
+    receivedAt     DateTime         @db.Timestamp()
+    manager        Employee         @relation(fields: [managerId], references: [id])
+    managerId      Int
+    comment        String           @default("")
+    status         Status           @default(NEW)
+    desserts       DessertsOrders[]
+}
+
+model DessertsOrders {
+    order          Order   @relation(fields: [orderId], references: [id])
+    orderId        Int
+    dessert        Dessert @relation(fields: [dessertId], references: [id])
+    dessertId      Int
+    dessertsNumber Int
+
+    @@id([orderId, dessertId])
+}
+
+enum Status {
+    NEW
+    AT_WORK
+    AT_DELIVERY
+    COMPLETED
+    CANCELED
 }
