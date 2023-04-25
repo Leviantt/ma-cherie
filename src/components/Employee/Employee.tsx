@@ -7,52 +7,138 @@ import { EditIcon } from '~/components/EditIcon';
 import { Button } from '~/components/Button';
 import { basicButtonStyles } from '~/components/Button/Button';
 import { api } from '~/utils/api';
+import { useRouter } from 'next/router';
+import { z } from 'zod';
+import { v4 } from 'uuid';
+import { DeleteIcon } from '../DeleteIcon/DeleteIcon';
 
 export const Employee = (employee: Partial<EmployeeType>) => {
-	const [isEditable, setIsEditable] = useState<boolean>(true);
-	/*
-fullName: string;
-    phone: string;
-    email: string;
-    workEmail: string;
-    pathToAvatarPhoto: string;
-    position: string;
-    age: number;
-    hireDate: Date;
-*/
+	const [isEditable, setIsEditable] = useState<boolean>(
+		typeof employee.id !== 'number'
+	);
+
 	const [fullName, setFullName] = useState(employee.fullName);
 	const [phone, setPhone] = useState(employee.phone);
 	const [email, setEmail] = useState(employee.email);
 	const [workEmail, setWorkEmail] = useState(employee.workEmail);
-	const [pathToAvatarPhoto, setPathToAvatarPhoto] = useState(
-		employee.pathToAvatarPhoto
-	);
+	// const [pathToAvatarPhoto, setPathToAvatarPhoto] = useState(
+	// 	employee.pathToAvatarPhoto
+	// );
 	const [position, setPosition] = useState(employee.position);
 	const [age, setAge] = useState(employee.age);
-	const [hireDate, setHireDate] = useState(employee.hireDate);
+	const [hireDate, setHireDate] = useState(employee.hireDate ?? new Date());
 
-	console.log(pathToAvatarPhoto);
+	const router = useRouter();
+	// console.log(pathToAvatarPhoto);
 
-	const save = () => {
-		if (employee.id) {
+	const [avatar, setAvatar] = useState<File | undefined>();
+	const [avatarURL, setAvatarURL] = useState<string | null>(null);
+
+	const uploadToClient = (event: React.ChangeEvent<HTMLInputElement>) => {
+		if (event.currentTarget.files && event.currentTarget.files[0]) {
+			if (!event.target.files) return;
+
+			const file = event.target.files[0];
+
+			setAvatar(file);
+			setAvatarURL(URL.createObjectURL(file as Blob));
 		}
 	};
+
+	const uploadToServer = async (pathToAvatarPhoto: string) => {
+		const body = new FormData();
+		if(avatar) {
+
+		}
+		body.append('file', avatar!);
+		body.append('filepath', pathToAvatarPhoto);
+		await fetch('/api/upload-image', {
+			method: 'POST',
+			body,
+		});
+	};
+
+	const createEmployee = api.employee.create.useMutation({
+		onSuccess: (emp: EmployeeType) => {
+			void router.push(`/employees/${emp.id}`);
+		},
+	});
+
+	const updateEmployee = api.employee.update.useMutation({
+		onSuccess: (emp: EmployeeType) => {
+			void router.push(`/employees/${emp.id}`);
+		},
+	});
+
+	const deleteEmployee = api.employee.delete.useMutation({
+		onSuccess: () => {
+			void router.push('/employees');
+		},
+	});
+
+	const save = async () => {
+		// setPathToAvatarPhoto(`./public/uploads/${v4()}`);
+		const newValues = {
+			fullName,
+			phone,
+			email,
+			pathToAvatarPhoto: '/images/default.jpg',
+			workEmail,
+			position,
+			age,
+			hireDate,
+		};
+		if(avatar) {
+			newValues.pathToAvatarPhoto = `/images/${v4()}.jpg`;	
+			await uploadToServer(newValues.pathToAvatarPhoto);
+		}
+		
+		if (employee.id) {
+			updateEmployee.mutate({
+				id: employee.id,
+				...newValues,
+			});
+		} else {
+			const validated = z
+				.object({
+					fullName: z.string(),
+					phone: z.string(),
+					email: z.string().email(),
+					workEmail: z.string().email(),
+					pathToAvatarPhoto: z.string(),
+					position: z.string(),
+					age: z.number().int(),
+					hireDate: z.date(),
+				})
+				.parse(newValues);
+			createEmployee.mutate({
+				...validated,
+			});
+		}
+	};
+
 	return (
 		<div className={styles.employeeProfile}>
 			<EditIcon
 				isActive={isEditable}
 				onClick={() => setIsEditable((prev) => !prev)}
 			/>
+			{typeof employee.id === 'number' && (
+				<DeleteIcon
+					isActive={isEditable}
+					onClick={() => deleteEmployee.mutate({ id: employee.id! })}
+				/>
+			)}
 			<div className={styles.avatarWrapper}>
 				<Image
 					alt='employee avatar'
 					className={styles.avatar}
-					src={pathToAvatarPhoto ?? ''}
-					width={300}
-					height={300}
+					src={avatarURL ?? employee.pathToAvatarPhoto ?? ''}
+					width={230}
+					height={230}
 					unoptimized={true}
 				/>
-				<input type='file' disabled={!isEditable} />
+				<input type='file' disabled={!isEditable} onChange={uploadToClient} />
 			</div>
 			<div className={styles.employeeInfo}>
 				<div className={styles.infoGroup}>
@@ -121,13 +207,15 @@ fullName: string;
 					<input
 						disabled={!isEditable}
 						type='date'
-						value={hireDate?.toDateString() ?? new Date().toDateString()}
+						value={hireDate.toISOString().substring(0, 10)}
 						placeholder='Дата устройства'
 						onChange={(e) => setHireDate(new Date(e.target.value))}
 					/>
 				</div>
 				<br />
-				<Button customStyles={basicButtonStyles}>Сохранить</Button>
+				<Button customStyles={basicButtonStyles} onClick={() => save()}>
+					Сохранить
+				</Button>
 			</div>
 		</div>
 	);

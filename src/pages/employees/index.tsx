@@ -7,6 +7,8 @@ import { Grid } from '~/components/Grid';
 import { EmployeeCard } from '../../components/EmployeeCard';
 import { filterButtonStyles } from '~/components/Button/Button';
 import { addButtonStyles } from '~/components/Button/Button';
+import { api } from '~/utils/api';
+import { useRouter } from 'next/router';
 
 interface Employee {
 	phoneNumber: string;
@@ -69,16 +71,33 @@ const MOCK_EMPLOYEES: Employee[] = [
 ];
 
 const Employees: NextPage = () => {
+	const router = useRouter();
+	const { data: employees, isLoading, error } = api.employee.getAll.useQuery();
+
+	if (isLoading) return <div>Loading...</div>;
+
+	if (error) {
+		console.log(error);
+		return <div>Something went wrong...</div>;
+	}
+
 	return (
 		<>
 			<h2>Сотрудники</h2>
 			<SearchBar isDarkBackground={false} placeholder='Поиск сотрудников' />
 			<div className={styles.buttons}>
 				<Button customStyles={filterButtonStyles}>Фильтр</Button>
-				<Button customStyles={addButtonStyles}>+ Добавить сотрудника</Button>
+				<Button
+					customStyles={addButtonStyles}
+					onClick={() => {
+						void router.push('/employees/new-employee');
+					}}
+				>
+					+ Добавить сотрудника
+				</Button>
 			</div>
 			<Grid cellMinWidth={250}>
-				{MOCK_EMPLOYEES.map((employee) => (
+				{employees.map((employee) => (
 					<EmployeeCard key={employee.id} {...employee} />
 				))}
 			</Grid>

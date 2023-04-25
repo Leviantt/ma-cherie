@@ -1,0 +1,13 @@
+.delete {
+  width: 1.5rem;
+  cursor: pointer;
+  position: absolute;
+  fill: red;
+  top: 1.5rem;
+  right: 4.5rem;
+}
+
+.delete.active {
+  fill: #918f8f;
+  cursor: default;
+}

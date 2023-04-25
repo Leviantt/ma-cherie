@@ -5,6 +5,7 @@ import styles from './EmployeeCard.module.css';
 import { Button } from '../Button';
 import { DotsIcon } from '../DotsIcon';
 import { employeeButtonStyles } from '../Button/Button';
+import { Employee } from '@prisma/client';
 
 type EmployeeCardProps = {
 	phoneNumber: string;
@@ -16,20 +17,20 @@ type EmployeeCardProps = {
 };
 
 export const EmployeeCard = ({
-	phoneNumber,
+	phone,
 	email,
 	workEmail,
 	fullName,
 	id,
-	image,
-}: EmployeeCardProps) => {
+	pathToAvatarPhoto,
+}: Employee) => {
 	return (
 		<div className={styles.card}>
 			<div className={styles.heading}>
 				<Image
 					alt='employee avatar'
 					className={styles.avatar}
-					src={image}
+					src={pathToAvatarPhoto}
 					width={70}
 					height={70}
 					unoptimized={true}
@@ -42,7 +43,7 @@ export const EmployeeCard = ({
 			</div>
 			<div className={styles.infoGroup}>
 				<label htmlFor=''>Телефон</label>
-				<p>{phoneNumber}</p>
+				<p>{phone}</p>
 			</div>
 			<div className={styles.infoGroup}>
 				<label htmlFor=''>Почта</label>
