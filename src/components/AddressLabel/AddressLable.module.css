@@ -4,4 +4,13 @@
   text-transform: uppercase;
   color: #fff;
   background-color: #a2c1b2;
+  cursor: pointer;
+}
+
+.label:hover {
+  opacity: .85;
+}
+
+.label.current {
+  background-color: #468d6c;
 }
