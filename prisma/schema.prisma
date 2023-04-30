@@ -32,6 +32,7 @@ model Client {
     source           String   @default("unknown")
     manager          Employee @relation(fields: [managerId], references: [id])
     managerId        Int
+    birthdate        DateTime @db.Date
 }
 
 model Dessert {
@@ -40,6 +41,20 @@ model Dessert {
     price       Decimal
     description String           @default("")
     orders      DessertsOrders[]
+    Request     Request[]
+}
+
+model Request {
+    id             Int     @id @default(autoincrement())
+    dessert        Dessert @relation(fields: [dessertId], references: [id])
+    dessertId      Int     @default(0)
+    mondayCount    Int     @default(0)
+    tuesdayCount   Int     @default(0)
+    wednesdayCount Int     @default(0)
+    thursdayCount  Int     @default(0)
+    fridayCount    Int     @default(0)
+    saturdayCount  Int     @default(0)
+    sundayCount    Int     @default(0)
 }
 
 model Order {
