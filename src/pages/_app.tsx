@@ -6,6 +6,7 @@ import '~/styles/globals.css';
 
 import { Layout } from '~/components/Layout';
 import Head from 'next/head';
+import { Toaster } from 'react-hot-toast';
 
 const inter = Inter({
 	subsets: ['cyrillic', 'latin'],
@@ -20,6 +21,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 			<div className={inter.className}>
+				<Toaster />
 				<Layout>
 					<Component {...pageProps} />
 				</Layout>

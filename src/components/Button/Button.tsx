@@ -4,7 +4,7 @@ import type { CustomButtonStyles } from '~/types/CustomButtonStyles';
 
 type ButtonProps = {
 	customStyles: CustomButtonStyles;
-	onClick?: () => void | Promise<void>; // TODO: remove ? sign
+	onClick?: () => void | Promise<void>;
 	readonly children?: ReactNode;
 };
 

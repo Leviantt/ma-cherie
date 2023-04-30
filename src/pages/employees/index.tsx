@@ -9,6 +9,8 @@ import { filterButtonStyles } from '~/components/Button/Button';
 import { addButtonStyles } from '~/components/Button/Button';
 import { api } from '~/utils/api';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
+import { makeCompareEmployees } from '~/utils/compare';
 
 interface Employee {
 	phoneNumber: string;
@@ -74,6 +76,8 @@ const Employees: NextPage = () => {
 	const router = useRouter();
 	const { data: employees, isLoading, error } = api.employee.getAll.useQuery();
 
+	const [searchInput, setSearchInput] = useState<string>('');
+
 	if (isLoading) return <div>Loading...</div>;
 
 	if (error) {
@@ -81,10 +85,17 @@ const Employees: NextPage = () => {
 		return <div>Something went wrong...</div>;
 	}
 
+	const sorted = employees.sort(makeCompareEmployees(searchInput));
+
 	return (
 		<>
 			<h2>Сотрудники</h2>
-			<SearchBar isDarkBackground={false} placeholder='Поиск сотрудников' />
+			<SearchBar
+				isDarkBackground={false}
+				placeholder='Поиск сотрудников'
+				searchInput={searchInput}
+				setSearchInput={setSearchInput}
+			/>
 			<div className={styles.buttons}>
 				<Button customStyles={filterButtonStyles}>Фильтр</Button>
 				<Button
@@ -97,9 +108,13 @@ const Employees: NextPage = () => {
 				</Button>
 			</div>
 			<Grid cellMinWidth={250}>
-				{employees.map((employee) => (
-					<EmployeeCard key={employee.id} {...employee} />
-				))}
+				{sorted.length === 0 ? (
+					<div>There is no employees yet</div>
+				) : (
+					sorted.map((employee) => (
+						<EmployeeCard key={employee.id} {...employee} />
+					))
+				)}
 			</Grid>
 		</>
 	);

@@ -33,6 +33,11 @@ const navItems = [
 	},
 	{
 		id: 6,
+		href: '/desserts',
+		title: 'Десерты',
+	},
+	{
+		id: 7,
 		href: '/settings',
 		title: 'Настройки',
 	},

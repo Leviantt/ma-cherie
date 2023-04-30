@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { useState } from 'react';
+import { toast } from 'react-hot-toast';
 
 import type { Employee as EmployeeType } from '@prisma/client';
 import styles from './Employee.module.css';
@@ -11,6 +12,8 @@ import { useRouter } from 'next/router';
 import { z } from 'zod';
 import { v4 } from 'uuid';
 import { DeleteIcon } from '../DeleteIcon/DeleteIcon';
+import { TRPCClientErrorBase } from '@trpc/client';
+import { DefaultErrorShape } from '@trpc/server';
 
 export const Employee = (employee: Partial<EmployeeType>) => {
 	const [isEditable, setIsEditable] = useState<boolean>(
@@ -21,15 +24,11 @@ export const Employee = (employee: Partial<EmployeeType>) => {
 	const [phone, setPhone] = useState(employee.phone);
 	const [email, setEmail] = useState(employee.email);
 	const [workEmail, setWorkEmail] = useState(employee.workEmail);
-	// const [pathToAvatarPhoto, setPathToAvatarPhoto] = useState(
-	// 	employee.pathToAvatarPhoto
-	// );
 	const [position, setPosition] = useState(employee.position);
 	const [age, setAge] = useState(employee.age);
 	const [hireDate, setHireDate] = useState(employee.hireDate ?? new Date());
 
 	const router = useRouter();
-	// console.log(pathToAvatarPhoto);
 
 	const [avatar, setAvatar] = useState<File | undefined>();
 	const [avatarURL, setAvatarURL] = useState<string | null>(null);
@@ -47,8 +46,7 @@ export const Employee = (employee: Partial<EmployeeType>) => {
 
 	const uploadToServer = async (pathToAvatarPhoto: string) => {
 		const body = new FormData();
-		if(avatar) {
-
+		if (avatar) {
 		}
 		body.append('file', avatar!);
 		body.append('filepath', pathToAvatarPhoto);
@@ -60,24 +58,38 @@ export const Employee = (employee: Partial<EmployeeType>) => {
 
 	const createEmployee = api.employee.create.useMutation({
 		onSuccess: (emp: EmployeeType) => {
+			toast.success("Сотрудник успешно добавлен.");
 			void router.push(`/employees/${emp.id}`);
+		},
+		onError: (error: TRPCClientErrorBase<DefaultErrorShape>) => {
+			console.log(error);
+			toast.error('Ошибка. Не удалось добавить сотрудника.');
 		},
 	});
 
 	const updateEmployee = api.employee.update.useMutation({
 		onSuccess: (emp: EmployeeType) => {
+			toast.success("Данные сотрудника успешно обновлены.");
 			void router.push(`/employees/${emp.id}`);
+		},
+		onError: (error: TRPCClientErrorBase<DefaultErrorShape>) => {
+			console.log(error);
+			toast.error('Ошибка. Не удалось обновить данные сотрудника.');
 		},
 	});
 
 	const deleteEmployee = api.employee.delete.useMutation({
 		onSuccess: () => {
+			toast.success("Сотрудник успешно удален.");
 			void router.push('/employees');
+		},
+		onError: (error: TRPCClientErrorBase<DefaultErrorShape>) => {
+			console.log(error);
+			toast.error('Ошибка. Не удалось удалить сотрудника.');
 		},
 	});
 
 	const save = async () => {
-		// setPathToAvatarPhoto(`./public/uploads/${v4()}`);
 		const newValues = {
 			fullName,
 			phone,
@@ -88,32 +100,39 @@ export const Employee = (employee: Partial<EmployeeType>) => {
 			age,
 			hireDate,
 		};
-		if(avatar) {
-			newValues.pathToAvatarPhoto = `/images/${v4()}.jpg`;	
+		if (avatar) {
+			newValues.pathToAvatarPhoto = `/images/${v4()}.jpg`;
 			await uploadToServer(newValues.pathToAvatarPhoto);
 		}
-		
+
 		if (employee.id) {
 			updateEmployee.mutate({
 				id: employee.id,
 				...newValues,
 			});
 		} else {
-			const validated = z
-				.object({
-					fullName: z.string(),
-					phone: z.string(),
-					email: z.string().email(),
-					workEmail: z.string().email(),
-					pathToAvatarPhoto: z.string(),
-					position: z.string(),
-					age: z.number().int(),
-					hireDate: z.date(),
-				})
-				.parse(newValues);
-			createEmployee.mutate({
-				...validated,
-			});
+			try {
+				const validated = z
+					.object({
+						fullName: z.string(),
+						phone: z
+							.string()
+							.regex(/^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/),
+						email: z.string().email(),
+						workEmail: z.string().email(),
+						pathToAvatarPhoto: z.string(),
+						position: z.string(),
+						age: z.number().int(),
+						hireDate: z.date(),
+					})
+					.parse(newValues);
+				createEmployee.mutate({
+					...validated,
+				});
+			} catch (error) {
+				console.log(error);
+				toast.error('Ошибка. Поля заполнены некорректно.');
+			}
 		}
 	};
 
@@ -130,15 +149,20 @@ export const Employee = (employee: Partial<EmployeeType>) => {
 				/>
 			)}
 			<div className={styles.avatarWrapper}>
-				<Image
-					alt='employee avatar'
+				<div
 					className={styles.avatar}
-					src={avatarURL ?? employee.pathToAvatarPhoto ?? ''}
-					width={230}
-					height={230}
-					unoptimized={true}
+					style={{
+						backgroundImage: `url(${
+							avatarURL ?? employee.pathToAvatarPhoto ?? ''
+						}`,
+					}}
+				></div>
+				<input
+					type='file'
+					disabled={!isEditable}
+					className={!isEditable ? styles.disabled : ''}
+					onChange={uploadToClient}
 				/>
-				<input type='file' disabled={!isEditable} onChange={uploadToClient} />
 			</div>
 			<div className={styles.employeeInfo}>
 				<div className={styles.infoGroup}>

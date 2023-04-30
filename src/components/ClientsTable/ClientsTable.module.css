@@ -1,5 +1,4 @@
 .clientsTable {
-  width: 800px;
   border: 1px solid #ccc;
   border-collapse: collapse;
   margin: 0;
@@ -30,8 +29,6 @@
   letter-spacing: .1em;
   text-transform: uppercase;
   background-color: #84ac98;
-  /* background-color: #a2c1b2; */
-  /* #84ac98 */
   font-weight: 400;
   padding: 1.35em 1.5em;
 }
@@ -56,8 +53,20 @@
 .col6 { width: 21%; }
 
 @media screen and (max-width: 720px) {
+
+  .clientsTable th:first-child, 
+  .clientsTable td:first-child {
+    border-left: #53826b solid 2px;
+  }
+
+  .clientsTable th:last-child,
+  .clientsTable td:last-child {
+    border-right: #53826b solid 2px; 
+  }
+
   .clientsTable {
     border: 0;
+    margin-bottom: 1.25em;
   }
   
   .clientsTable thead {
@@ -70,10 +79,6 @@
     position: absolute;
     width: 1px;
   }
-  /* Клиенты Дата регистрации Последняя покупка Общая сумма покупок Источник Менеджер */
-  /* 94      95               94                113                 71       128 */
-  /* 15%     15%              15%               19%                 12%      21% */
- 
 
   .clientsTable tr {
     border-bottom: 3px solid #ddd;

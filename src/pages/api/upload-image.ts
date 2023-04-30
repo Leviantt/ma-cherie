@@ -51,17 +51,12 @@ async function uploadImage(req: NextApiRequest) {
 		form.parse(req, (err, fields, files) => {
 			if (err) return reject('Error occurred parsing request body');
 
-			console.log(fields);
-			console.log(fields.filepath);
-
 			if (typeof fields.filepath !== 'string')
 				return reject('File was not provided');
 
 			const file: any = files.file;
 			const filepath = file.filepath;
 			const newFilePath = './public' + fields.filepath;
-			console.log(filepath);
-			console.log(newFilePath);
 			// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
 			mv(filepath, newFilePath, () => {
 				resolve('Successfully uploaded file');

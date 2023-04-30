@@ -33,7 +33,6 @@ export const EmployeeCard = ({
 					src={pathToAvatarPhoto}
 					width={70}
 					height={70}
-					unoptimized={true}
 				/>
 				<div className={styles.identity}>
 					<h4>{fullName}</h4>
