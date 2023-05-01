@@ -1,18 +1,29 @@
+import { useState } from 'react';
 import { toast } from 'react-hot-toast';
+import type { TRPCClientErrorBase } from '@trpc/client';
+import type { DefaultErrorShape } from '@trpc/server';
+
+import styles from './AddRequestRow.module.css';
+import { api } from '~/utils/api';
 import { Button } from '../Button';
 import { basicButtonStyles } from '../Button/Button';
-import styles from './AddRequestRow.module.css';
-import { useState } from 'react';
-import { api } from '~/utils/api';
-import { Request } from '@prisma/client';
-import { TRPCClientErrorBase } from '@trpc/client';
-import { DefaultErrorShape } from '@trpc/server';
+import { isRequestNullable } from '~/utils/isRequestNullable';
 
 type AddRequestRowProps = {
 	refetchTable: () => void;
+	address: string;
+	desserts: { id: number; name: string }[];
+	refetchDesserts: () => void;
 };
+
 const DESSERT_NOT_SELECTED = '<не выбрано>';
-export const AddRequestRow = ({ refetchTable }: AddRequestRowProps) => {
+
+export const AddRequestRow = ({
+	refetchTable,
+	address,
+	desserts,
+	refetchDesserts,
+}: AddRequestRowProps) => {
 	const [dessertName, setDessertName] = useState(DESSERT_NOT_SELECTED);
 	const [mondayCount, setMondayCount] = useState(0);
 	const [tuesdayCount, setTuesdayCount] = useState(0);
@@ -34,6 +45,7 @@ export const AddRequestRow = ({ refetchTable }: AddRequestRowProps) => {
 			setSaturdayCount(0);
 			setSundayCount(0);
 			refetchTable();
+			refetchDesserts();
 		},
 		onError: (error: TRPCClientErrorBase<DefaultErrorShape>) => {
 			console.log(error);
@@ -47,23 +59,22 @@ export const AddRequestRow = ({ refetchTable }: AddRequestRowProps) => {
 			toast.error('Выберите новый десерт для добавления заявок.');
 			return;
 		}
-		const counts = [
+		const counts = {
 			mondayCount,
 			tuesdayCount,
-			wednesdayCount,
-			thursdayCount,
 			wednesdayCount,
 			thursdayCount,
 			fridayCount,
 			saturdayCount,
 			sundayCount,
-		];
-		if (counts.every((count) => count === 0)) {
+		};
+		if (isRequestNullable(counts)) {
 			toast.error('Хотя бы один из столбцов должен быть ненулевым.');
 			return;
 		}
 		addRequest.mutate({
-			dessertId: 1, // change to dynamic id,
+			dessertId: desserts.find((d) => d.name === dessertName)?.id ?? -1,
+			address,
 			...counts,
 		});
 	};
@@ -78,10 +89,11 @@ export const AddRequestRow = ({ refetchTable }: AddRequestRowProps) => {
 						className={styles.input}
 					>
 						<option value={DESSERT_NOT_SELECTED}>{DESSERT_NOT_SELECTED}</option>
-						<option value='Круассан1'>Круассан1</option>
-						<option value='Круассан2'>Круассан2</option>
-						<option value='Круассан3'>Круассан3</option>
-						<option value='Круассан4'>Круассан4</option>
+						{desserts.map((dessert) => (
+							<option key={dessert.id} value={dessert.name}>
+								{dessert.name}
+							</option>
+						))}
 					</select>
 				</div>
 				<div className={styles.col2} data-label='ПН'>

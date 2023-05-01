@@ -2,91 +2,47 @@ import { api } from '~/utils/api';
 import { RequestRow } from '../RequestRow';
 import styles from './RequestsTable.module.css';
 import { AddRequestRow } from '../AddRequestRow';
-import { Prisma } from '@prisma/client';
+import { filterNewDesserts } from '~/utils/filterNewDesserts';
 
-export const RequestsTable = () => {
-	const { data, isLoading, error, refetch } = api.request.getAll.useQuery();
+type RequestsTableProps = {
+	address: string;
+};
 
-	if (isLoading) return <div>Loading...</div>;
+export const RequestsTable = ({ address }: RequestsTableProps) => {
+	const {
+		data: requests,
+		isLoading,
+		error,
+		refetch,
+	} = api.request.getAllByAddress.useQuery({ address });
 
-	if (error) {
+	const {
+		data: desserts,
+		isLoading: isLoadingDesserts,
+		error: dessertsError,
+		refetch: refetchDesserts,
+	} = api.dessert.getAll.useQuery();
+
+	if (isLoading || isLoadingDesserts) return <div>Loading...</div>;
+
+	if (error || dessertsError) {
 		console.log(error);
+		console.log(dessertsError);
 		return <div>Something went wrong...</div>;
 	}
-	const mock_data: typeof data = [
-		{
-			id: 1,
-			dessert: {
-				id: 1,
-				description: '',
-				name: 'random',
-				price: new Prisma.Decimal(100),
-			},
-			dessertId: 1,
-			mondayCount: 1,
-			tuesdayCount: 12,
-			wednesdayCount: 3,
-			thursdayCount: 3,
-			fridayCount: 10,
-			saturdayCount: 5,
-			sundayCount: 64,
-		},
-		{
-			id: 2,
-			dessert: {
-				id: 1,
-				description: '',
-				name: 'random',
-				price: new Prisma.Decimal(100),
-			},
-			dessertId: 1,
-			mondayCount: 1,
-			tuesdayCount: 12,
-			wednesdayCount: 3,
-			thursdayCount: 3,
-			fridayCount: 10,
-			saturdayCount: 5,
-			sundayCount: 64,
-		},
-		{
-			id: 3,
-			dessert: {
-				id: 1,
-				description: '',
-				name: 'random',
-				price: new Prisma.Decimal(100),
-			},
-			dessertId: 1,
-			mondayCount: 1,
-			tuesdayCount: 12,
-			wednesdayCount: 3,
-			thursdayCount: 3,
-			fridayCount: 10,
-			saturdayCount: 5,
-			sundayCount: 64,
-		},
-		{
-			id: 4,
-			dessert: {
-				id: 1,
-				description: '',
-				name: 'random',
-				price: new Prisma.Decimal(100),
-			},
-			dessertId: 1,
-			mondayCount: 1,
-			tuesdayCount: 12,
-			wednesdayCount: 3,
-			thursdayCount: 3,
-			fridayCount: 10,
-			saturdayCount: 5,
-			sundayCount: 64,
-		},
-	];
+
+	const sorted = requests.sort((a, b) =>
+		a.dessert.name.localeCompare(b.dessert.name)
+	);
 
 	return (
 		<div className={styles.requestsTableContainer}>
-			<AddRequestRow refetchTable={() => void refetch()} />
+			<AddRequestRow
+				refetchTable={() => void refetch()}
+				address={address}
+				desserts={filterNewDesserts(requests, desserts)}
+				refetchDesserts={() => void refetchDesserts()}
+			/>
 			<table className={styles.requestsTable}>
 				<thead>
 					<tr>
@@ -117,11 +73,12 @@ export const RequestsTable = () => {
 					</tr>
 				</thead>
 				<tbody>
-					{mock_data.map((request) => (
+					{sorted.map((request) => (
 						<RequestRow
 							key={request.id}
 							{...request}
 							refetchTable={() => void refetch()}
+							refetchDesserts={() => void refetchDesserts()}
 						/>
 					))}
 				</tbody>

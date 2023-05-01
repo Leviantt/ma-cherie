@@ -5,9 +5,19 @@ import { Button } from '~/components/Button';
 import { RequestsTable } from '~/components/RequestsTable';
 import { AddressLabel } from '~/components/AddressLabel';
 import { basicButtonStyles } from '~/components/Button/Button';
-import { AddRequestRow } from '~/components/AddRequestRow';
+import { useState } from 'react';
+
+export const addresses = [
+	'Молодогвардейская',
+	'Солнечная',
+	'Дачная',
+	'Куйбышева',
+	'Галактионовская',
+] as const;
 
 const Requests: NextPage = () => {
+	const [currentAddress, setCurrentAddress] = useState<string>(addresses[0]);
+
 	return (
 		<>
 			<h2>Заявки</h2>
@@ -15,13 +25,16 @@ const Requests: NextPage = () => {
 				<Button customStyles={basicButtonStyles}>Экспорт в Excel</Button>
 			</div>
 			<div className={styles.container}>
-				<RequestsTable />
+				<RequestsTable address={currentAddress} />
 				<div className={styles.addresses}>
-					<AddressLabel key={1} title='Молодогвардейская' isCurrent={true} />
-					<AddressLabel key={2} title='Солнечная' />
-					<AddressLabel key={3} title='Дачная' />
-					<AddressLabel key={4} title='Куйбышева' />
-					<AddressLabel key={5} title='Галактионовская' />
+					{addresses.map((address) => (
+						<AddressLabel
+							key={address}
+							title={address}
+							isCurrent={address === currentAddress}
+							onClick={() => setCurrentAddress(address)}
+						/>
+					))}
 				</div>
 			</div>
 		</>

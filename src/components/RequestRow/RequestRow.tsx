@@ -1,14 +1,20 @@
-import { api } from '~/utils/api';
 import styles from './RequestRow.module.css';
 import { useState } from 'react';
-import { Dessert, Request } from '@prisma/client';
+import type { Request } from '@prisma/client';
+import { api } from '~/utils/api';
+import { toast } from 'react-hot-toast';
+import type { TRPCClientErrorBase } from '@trpc/client';
+import type { DefaultErrorShape } from '@trpc/server';
+import { isRequestNullable } from '~/utils/isRequestNullable';
 
 type RequestRowProps = Request & {
-	dessert: Dessert;
+	dessert: { name: string };
 	refetchTable: () => void;
+	refetchDesserts: () => void;
 };
 
 export const RequestRow = (props: RequestRowProps) => {
+	console.log(props);
 	const [mondayCount, setMondayCount] = useState(props.mondayCount);
 	const [tuesdayCount, setTuesdayCount] = useState(props.tuesdayCount);
 	const [wednesdayCount, setWednesdayCount] = useState(props.wednesdayCount);
@@ -17,8 +23,55 @@ export const RequestRow = (props: RequestRowProps) => {
 	const [saturdayCount, setSaturdayCount] = useState(props.saturdayCount);
 	const [sundayCount, setSundayCount] = useState(props.sundayCount);
 
+	const [updateTimer, setUpdateTimer] = useState<NodeJS.Timeout | undefined>();
+
+	const updateRequest = api.request.update.useMutation({
+		onSuccess: () => {
+			void props.refetchTable();
+			void props.refetchDesserts();
+			toast.success('Заявки для десерта успешно обновлены');
+		},
+		onError: (error: TRPCClientErrorBase<DefaultErrorShape>) => {
+			console.log(error);
+			toast.error('Ошибка. Не удалось обновить заявки для десерта.');
+		},
+	});
+
+	const deleteRequest = api.request.delete.useMutation({
+		onSuccess: () => {
+			void props.refetchTable();
+			void props.refetchDesserts();
+			toast.success('Заявки для десерта удалены, т.к. все столбцы равны 0');
+		},
+		onError: (error: TRPCClientErrorBase<DefaultErrorShape>) => {
+			console.log(error);
+			toast.error('Ошибка. Не удалось удалить заявки для десерта.');
+		},
+	});
+
+	const handleUpdate = () => {
+		clearTimeout(updateTimer);
+		const timer = setTimeout(() => {
+			const counts = {
+				mondayCount,
+				tuesdayCount,
+				wednesdayCount,
+				thursdayCount,
+				fridayCount,
+				saturdayCount,
+				sundayCount,
+			};
+			if (isRequestNullable(counts)) {
+				deleteRequest.mutate({ id: props.id });
+			} else {
+				updateRequest.mutate({ id: props.id, ...counts });
+			}
+		}, 3000);
+		setUpdateTimer(timer);
+	};
+
 	return (
-		<tr className={styles.row}>
+		<tr className={styles.row} onBlur={() => handleUpdate()}>
 			<td className={styles.col1} data-label='Десерт'>
 				<label>{props.dessert.name}</label>
 			</td>
@@ -27,7 +80,7 @@ export const RequestRow = (props: RequestRowProps) => {
 					className={styles.input}
 					type='number'
 					min={0}
-					value={mondayCount}
+					value={mondayCount.toString()}
 					onChange={(e) => setMondayCount(+e.target.value)}
 				/>
 			</td>
@@ -36,7 +89,7 @@ export const RequestRow = (props: RequestRowProps) => {
 					className={styles.input}
 					type='number'
 					min={0}
-					value={tuesdayCount}
+					value={tuesdayCount.toString()}
 					onChange={(e) => setTuesdayCount(+e.target.value)}
 				/>
 			</td>
@@ -45,7 +98,7 @@ export const RequestRow = (props: RequestRowProps) => {
 					className={styles.input}
 					type='number'
 					min={0}
-					value={wednesdayCount}
+					value={wednesdayCount.toString()}
 					onChange={(e) => setWednesdayCount(+e.target.value)}
 				/>
 			</td>
@@ -54,7 +107,7 @@ export const RequestRow = (props: RequestRowProps) => {
 					className={styles.input}
 					type='number'
 					min={0}
-					value={thursdayCount}
+					value={thursdayCount.toString()}
 					onChange={(e) => setThursdayCount(+e.target.value)}
 				/>
 			</td>
@@ -63,7 +116,7 @@ export const RequestRow = (props: RequestRowProps) => {
 					className={styles.input}
 					type='number'
 					min={0}
-					value={fridayCount}
+					value={fridayCount.toString()}
 					onChange={(e) => setFridayCount(+e.target.value)}
 				/>
 			</td>
@@ -72,7 +125,7 @@ export const RequestRow = (props: RequestRowProps) => {
 					className={styles.input}
 					type='number'
 					min={0}
-					value={saturdayCount}
+					value={saturdayCount.toString()}
 					onChange={(e) => setSaturdayCount(+e.target.value)}
 				/>
 			</td>
@@ -81,7 +134,7 @@ export const RequestRow = (props: RequestRowProps) => {
 					className={styles.input}
 					type='number'
 					min={0}
-					value={sundayCount}
+					value={sundayCount.toString()}
 					onChange={(e) => setSundayCount(+e.target.value)}
 				/>
 			</td>

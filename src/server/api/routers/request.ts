@@ -14,14 +14,7 @@ export const requestRouter = createTRPCRouter({
 		.query(({ ctx, input }) => {
 			return ctx.prisma.request.findUnique({
 				where: { id: input.id },
-				select: {
-					mondayCount: true,
-					tuesdayCount: true,
-					wednesdayCount: true,
-					thursdayCount: true,
-					fridayCount: true,
-					saturdayCount: true,
-					sundayCount: true,
+				include: {
 					dessert: {
 						select: {
 							name: true,
@@ -30,9 +23,29 @@ export const requestRouter = createTRPCRouter({
 				},
 			});
 		}),
+	getAllByAddress: publicProcedure
+		.input(z.object({ address: z.string() }))
+		.query(
+			({
+				ctx,
+				input,
+			}): Prisma.PrismaPromise<
+				(Request & { dessert: { id: number; name: string } })[]
+			> => {
+				return ctx.prisma.request.findMany({
+					where: { address: input.address },
+					include: {
+						dessert: {
+							select: { id: true, name: true },
+						},
+					},
+				});
+			}
+		),
 	create: publicProcedure
 		.input(
 			z.object({
+				address: z.string(),
 				mondayCount: z.number().int().optional(),
 				tuesdayCount: z.number().int().optional(),
 				wednesdayCount: z.number().int().optional(),
@@ -45,6 +58,7 @@ export const requestRouter = createTRPCRouter({
 		)
 		.mutation(({ ctx, input }) => {
 			const { dessertId, ...newRequest } = input;
+			console.log(newRequest);
 			return ctx.prisma.request.create({
 				data: {
 					...newRequest,
@@ -67,6 +81,7 @@ export const requestRouter = createTRPCRouter({
 		.input(
 			z.object({
 				id: z.number().int(),
+				address: z.string().optional(),
 				mondayCount: z.number().int().optional(),
 				tuesdayCount: z.number().int().optional(),
 				wednesdayCount: z.number().int().optional(),
