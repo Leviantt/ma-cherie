@@ -1,0 +1,14 @@
+.close {
+  cursor: pointer;
+  position: absolute;
+  top: 1.25rem;
+  right: 1.5rem;
+  top: 15px;
+  right: 15px;
+  opacity: .6;
+}
+
+.close svg {
+  aspect-ratio: 1;
+  width: 1.75rem;
+}

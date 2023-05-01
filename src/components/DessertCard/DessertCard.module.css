@@ -1,0 +1,171 @@
+/* .dessertContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: #e3ece7;
+  border-radius: 1rem;
+  padding: 2em;
+  margin-bottom: .75em;
+  position: relative;
+}
+
+.dessertInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.dessertInfo button {
+  margin-left: auto;
+}
+
+.infoGroup {
+  display: flex;
+  flex-direction: column;
+  padding: .25em .5em 0 0;
+  margin-bottom: 1em;
+}
+
+.infoGroup input:focus,
+.infoGroup textarea:focus {
+  border: 1px solid var(--primary-color);
+  border-radius: .5rem;
+}
+
+.infoGroup label {
+  font-size: .75rem;
+}
+
+.infoGroup input,
+.infoGroup input[disabled],
+.infoGroup input:disabled {
+  font-size: 1.15rem;
+  background-color: #fff;
+  border: none;
+  outline: none;
+  background-color: #e3ece7;
+  padding: .5em;
+  padding-left: 0;
+  padding-bottom: 0;
+}
+
+.infoGroup textarea {
+  resize: none;
+  overflow: auto;
+  border: none;
+  outline: none;
+  background-color: #e3ece7;
+}
+
+
+.avatar {
+  border-radius: 50%;
+  object-fit: cover; 
+  background-size: cover;
+  background-position: center;
+  width: 230px;
+  height: 230px;
+}
+
+
+.avatarWrapper {
+  position: relative;
+}
+
+.avatarWrapper input[type='file'] {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  cursor: pointer;
+  border-radius: 50%;
+  opacity: 0;
+}
+.avatarWrapper input[type='file'].disabled {
+  cursor: default;
+}
+
+@media (min-width: 1000px) {
+  .dessertContainer {
+    flex-direction: row;
+  }
+
+} */
+
+.dessertContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: #e3ece7;
+  border-radius: 1rem;
+  padding: 2em;
+  margin-bottom: .75em;
+  position: relative;
+}
+
+.dessertContainer > div:first-child {
+  top: 18px;
+  right: 17px;
+}
+
+.dessertContainer > div:nth-child(2) {
+  top: 18px;
+  right: 55px;
+}
+
+.dessertInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.dessertInfo button {
+  margin-left: auto;
+}
+
+.infoGroup {
+  display: flex;
+  flex-direction: column;
+  padding: .25em .5em 0 0;
+  margin-bottom: 1em;
+}
+
+.infoGroup label {
+  font-size: .75rem;
+  margin-bottom: .25em;
+  margin-left: .75em;
+}
+
+.infoGroup input,
+.infoGroup textarea {
+  font-size: 1.15rem;
+  border: 1px solid transparent;
+  outline: none;
+  background-color: #e3ece7;
+  padding: .25em .5em;
+  border-radius: .5rem;
+}
+
+.infoGroup textarea {
+  resize: none;
+  overflow: auto;
+  font-family: Inter;
+}
+
+.infoGroup input.editable,
+.infoGroup textarea.editable {
+  border: 1px solid #a7bbb1; 
+}
+
+.infoGroup input:focus,
+.infoGroup textarea:focus {
+  border: 1px solid var(--primary-color);
+}
+
+@media (min-width: 1000px) {
+  .dessertContainer {
+    flex-direction: row;
+  }
+
+}
