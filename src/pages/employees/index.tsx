@@ -12,66 +12,6 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { makeCompareEmployees } from '~/utils/compare';
 
-interface Employee {
-	phoneNumber: string;
-	email: string;
-	workEmail: string;
-	fullName: string;
-	id: string;
-	image: string;
-}
-
-const MOCK_EMPLOYEES: Employee[] = [
-	{
-		phoneNumber: '89377020830',
-		email: 'directormacherie@mail.ru',
-		workEmail: 'financemacherie@tut.by',
-		fullName: 'Соловьева Нина',
-		id: '8288281',
-		image: '/images/employee1.jpg',
-	},
-	{
-		phoneNumber: '89377020830',
-		email: 'directormacherie@mail.ru',
-		workEmail: 'financemacherie@tut.by',
-		fullName: 'Соловьева Нина',
-		id: '8288282',
-		image: '/images/employee2.jpg',
-	},
-	{
-		phoneNumber: '89377020830',
-		email: 'directormacherie@mail.ru',
-		workEmail: 'financemacherie@tut.by',
-		fullName: 'Соловьева Нина',
-		id: '8288283',
-		image: '/images/employee3.jpg',
-	},
-	{
-		phoneNumber: '89377020830',
-		email: 'directormacherie@mail.ru',
-		workEmail: 'financemacherie@tut.by',
-		fullName: 'Соловьева Нина',
-		id: '8288284',
-		image: '/images/employee4.jpg',
-	},
-	{
-		phoneNumber: '89377020830',
-		email: 'directormacherie@mail.ru',
-		workEmail: 'financemacherie@tut.by',
-		fullName: 'Соловьева Нина',
-		id: '8288285',
-		image: '/images/employee5.jpg',
-	},
-	{
-		phoneNumber: '89377020830',
-		email: 'directormacherie@mail.ru',
-		workEmail: 'financemacherie@tut.by',
-		fullName: 'Соловьева Нина',
-		id: '8288286',
-		image: '/images/employee6.jpg',
-	},
-];
-
 const Employees: NextPage = () => {
 	const router = useRouter();
 	const { data: employees, isLoading, error } = api.employee.getAll.useQuery();
