@@ -1,16 +1,14 @@
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import type { TRPCClientErrorBase } from '@trpc/client';
-import type { DefaultErrorShape } from '@trpc/server';
 
 import styles from './AddRequestRow.module.css';
-import { api } from '~/utils/api';
 import { Button } from '../Button';
 import { basicButtonStyles } from '../Button/Button';
 import { isRequestNullable } from '~/utils/isRequestNullable';
+import { useCreateRequest } from '~/hooks/request/useCreateRequest';
 
 type AddRequestRowProps = {
-	refetchTable: () => void;
+	refetchRequests: () => void;
 	address: string;
 	desserts: { id: number; name: string }[];
 	refetchDesserts: () => void;
@@ -19,7 +17,7 @@ type AddRequestRowProps = {
 const DESSERT_NOT_SELECTED = '<не выбрано>';
 
 export const AddRequestRow = ({
-	refetchTable,
+	refetchRequests,
 	address,
 	desserts,
 	refetchDesserts,
@@ -33,25 +31,18 @@ export const AddRequestRow = ({
 	const [saturdayCount, setSaturdayCount] = useState(0);
 	const [sundayCount, setSundayCount] = useState(0);
 
-	const addRequest = api.request.create.useMutation({
-		onSuccess: () => {
-			toast.success('Заявки для десерта успешно добавлены');
-			setDessertName(DESSERT_NOT_SELECTED);
-			setMondayCount(0);
-			setTuesdayCount(0);
-			setWednesdayCount(0);
-			setThursdayCount(0);
-			setFridayCount(0);
-			setSaturdayCount(0);
-			setSundayCount(0);
-			refetchTable();
-			refetchDesserts();
-		},
-		onError: (error: TRPCClientErrorBase<DefaultErrorShape>) => {
-			console.log(error);
-			toast.error('Ошибка. Не удалось добавить заявки для десерта.');
-		},
-	});
+	const resetInputs = () => {
+		setDessertName(DESSERT_NOT_SELECTED);
+		setMondayCount(0);
+		setTuesdayCount(0);
+		setWednesdayCount(0);
+		setThursdayCount(0);
+		setFridayCount(0);
+		setSaturdayCount(0);
+		setSundayCount(0);
+	};
+
+	const addRequest = useCreateRequest(resetInputs, refetchRequests, refetchDesserts);
 
 	const handleAddRequest = () => {
 		console.log('add');

@@ -4,6 +4,12 @@
   padding: .35em;
 }
 
+.row label {
+  padding: .75em .5em;
+  width: 100%;
+  text-align: center;
+}
+
 .col1 { width: 23%; }
 .col2 { width: 11%; }
 
@@ -14,7 +20,6 @@
   background-color: transparent;
   outline: none;
   text-align: center;
-  /* padding: .6em .9em; */
   padding: .6em 0;
 }
 

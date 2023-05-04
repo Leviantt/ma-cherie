@@ -29,7 +29,17 @@ export const dessertRouter = createTRPCRouter({
 		}),
 	delete: publicProcedure
 		.input(z.object({ id: z.number().int() }))
-		.mutation(({ ctx, input }) => {
+		.mutation(async ({ ctx, input }) => {
+			await ctx.prisma.dessert.update({
+				where: {
+					id: input.id,
+				},
+				data: {
+					requests: {
+						deleteMany: {},
+					},
+				},
+			});
 			return ctx.prisma.dessert.delete({
 				where: {
 					id: input.id,

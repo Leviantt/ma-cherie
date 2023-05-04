@@ -1,32 +1,33 @@
+import type { Client } from '@prisma/client';
 import styles from './ClientRow.module.css';
-import type { Client } from '~/types/Client';
-
-type ClientRowProps = {
-	client: Client;
-};
 
 export const ClientRow = ({
-	client: { fullName, registerDate, lastOrder, totalExpenses, source, manager },
-}: ClientRowProps) => {
+	fullName,
+	registrationDate,
+	// lastOrder,
+	// totalExpenses,
+	source,
+}: // manager,
+Client) => {
 	return (
 		<tr>
 			<td className={styles.col1} data-label='Клиент'>
 				{fullName}
 			</td>
 			<td className={styles.col2} data-label='Дата регистрации'>
-				{registerDate}
+				{registrationDate.toLocaleDateString()}
 			</td>
 			<td className={styles.col3} data-label='Последняя покупка'>
-				{lastOrder}
+				{/* {lastOrder} */}
 			</td>
 			<td className={styles.col4} data-label='Общая сумма покупок'>
-				{totalExpenses}
+				{/* {totalExpenses} */}
 			</td>
 			<td className={styles.col5} data-label='Источник'>
 				{source}
 			</td>
 			<td className={styles.col6} data-label='Менеджер'>
-				{manager}
+				{/* {manager} */}
 			</td>
 		</tr>
 	);

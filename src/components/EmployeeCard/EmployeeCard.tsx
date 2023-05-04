@@ -1,20 +1,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import type { Employee } from '@prisma/client';
 
 import styles from './EmployeeCard.module.css';
 import { Button } from '../Button';
 import { DotsIcon } from '../DotsIcon';
 import { employeeButtonStyles } from '../Button/Button';
-import { Employee } from '@prisma/client';
-
-type EmployeeCardProps = {
-	phoneNumber: string;
-	email: string;
-	workEmail: string;
-	fullName: string;
-	id: string;
-	image: string;
-};
 
 export const EmployeeCard = ({
 	phone,

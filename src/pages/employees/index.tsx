@@ -11,6 +11,7 @@ import { api } from '~/utils/api';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { makeCompareEmployees } from '~/utils/compare';
+import { ModalConfirm } from '~/components/ModalConfirm';
 
 const Employees: NextPage = () => {
 	const router = useRouter();

@@ -98,6 +98,10 @@
     display: block;
     font-size: .8em;
     text-align: right;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
   
   .requestsTable td::before {

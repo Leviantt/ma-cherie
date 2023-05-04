@@ -20,7 +20,6 @@ model Employee {
     position          String
     age               Int
     hireDate          DateTime @default(now()) @db.Date
-    clients           Client[]
     orders            Order[]
 }
 
@@ -28,11 +27,10 @@ model Client {
     id               Int      @id @default(autoincrement())
     fullName         String
     registrationDate DateTime @db.Date
-    orders           Order[]
-    source           String   @default("unknown")
-    manager          Employee @relation(fields: [managerId], references: [id])
-    managerId        Int
     birthdate        DateTime @db.Date
+    phone            String   @unique
+    source           String   @default("unknown")
+    orders           Order[]
 }
 
 model Dessert {
@@ -41,7 +39,7 @@ model Dessert {
     price       Decimal
     description String           @default("")
     orders      DessertsOrders[]
-    request     Request[]
+    requests    Request[]
 }
 
 model Request {
@@ -62,12 +60,12 @@ model Order {
     id             Int              @id @default(autoincrement())
     createdAt      DateTime         @default(now())
     name           String
-    description    String           @default("")
+    address        String
     client         Client           @relation(fields: [clientId], references: [id])
     clientId       Int
-    totalPrice     Decimal
     deliveryMethod String
-    receivedAt     DateTime         @db.Timestamp()
+    deliveryPrice  Decimal          @default(0)
+    receivedAt     DateTime?        @db.Timestamp()
     manager        Employee         @relation(fields: [managerId], references: [id])
     managerId      Int
     comment        String           @default("")

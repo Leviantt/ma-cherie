@@ -1,5 +1,7 @@
 .dots {
   width: 1.5rem;
+  min-width: 1.5rem;
+  aspect-ratio: 1;
   margin-left: auto;
   cursor: pointer;
 }

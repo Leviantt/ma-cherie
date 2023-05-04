@@ -38,7 +38,7 @@ export const RequestsTable = ({ address }: RequestsTableProps) => {
 	return (
 		<div className={styles.requestsTableContainer}>
 			<AddRequestRow
-				refetchTable={() => void refetch()}
+				refetchRequests={() => void refetch()}
 				address={address}
 				desserts={filterNewDesserts(requests, desserts)}
 				refetchDesserts={() => void refetchDesserts()}
@@ -77,7 +77,7 @@ export const RequestsTable = ({ address }: RequestsTableProps) => {
 						<RequestRow
 							key={request.id}
 							{...request}
-							refetchTable={() => void refetch()}
+							refetchRequests={() => void refetch()}
 							refetchDesserts={() => void refetchDesserts()}
 						/>
 					))}

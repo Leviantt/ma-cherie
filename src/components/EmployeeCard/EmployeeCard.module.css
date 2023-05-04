@@ -27,12 +27,14 @@
 
 .identity {
   margin: 0 .5em;
+  width: 60%;
 }
 
 .identity h4 {
   margin-top: 0.2em;
   margin-bottom: 0;
   font-weight: 500;
+  overflow-wrap: break-word;
 }
 
 .identity p {

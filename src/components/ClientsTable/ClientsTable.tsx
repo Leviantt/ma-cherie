@@ -1,81 +1,5 @@
-import type { Client } from '~/types/Client';
 import styles from './ClientsTable.module.css';
 import { ClientRow } from '../ClientRow';
-
-const MOCK_CLIENTS: Client[] = [
-	{
-		id: '1',
-		fullName: 'Иванов Иван',
-		registerDate: '22.03.2023',
-		lastOrder: 'test order',
-		totalExpenses: 10000,
-		source: 'source',
-		manager: 'manager',
-	},
-	{
-		id: '2',
-		fullName: 'Иванов Иван',
-		registerDate: '22.03.2023',
-		lastOrder: 'test order',
-		totalExpenses: 10000,
-		source: 'source',
-		manager: 'manager',
-	},
-	{
-		id: '3',
-		fullName: 'Иванов Иван',
-		registerDate: '22.03.2023',
-		lastOrder: 'test order',
-		totalExpenses: 10000,
-		source: 'source',
-		manager: 'manager',
-	},
-	{
-		id: '4',
-		fullName: 'Иванов Иван',
-		registerDate: '22.03.2023',
-		lastOrder: 'test order',
-		totalExpenses: 10000,
-		source: 'source',
-		manager: 'manager',
-	},
-	{
-		id: '5',
-		fullName: 'Иванов Иван',
-		registerDate: '22.03.2023',
-		lastOrder: 'test order',
-		totalExpenses: 10000,
-		source: 'source',
-		manager: 'manager',
-	},
-	{
-		id: '6',
-		fullName: 'Иванов Иван',
-		registerDate: '22.03.2023',
-		lastOrder: 'test order',
-		totalExpenses: 10000,
-		source: 'source',
-		manager: 'manager',
-	},
-	{
-		id: '7',
-		fullName: 'Иванов Иван',
-		registerDate: '22.03.2023',
-		lastOrder: 'test order',
-		totalExpenses: 10000,
-		source: 'source',
-		manager: 'manager',
-	},
-	{
-		id: '8',
-		fullName: 'Иванов Иван',
-		registerDate: '22.03.2023',
-		lastOrder: 'test order',
-		totalExpenses: 10000,
-		source: 'source',
-		manager: 'manager',
-	},
-];
 
 export const ClientsTable = () => {
 	return (
@@ -83,7 +7,7 @@ export const ClientsTable = () => {
 			<thead>
 				<tr>
 					<th scope='col' className={styles.col1}>
-						Клиенты
+						Клиент
 					</th>
 					<th scope='col' className={styles.col2}>
 						Дата регистрации
@@ -103,9 +27,9 @@ export const ClientsTable = () => {
 				</tr>
 			</thead>
 			<tbody>
-				{MOCK_CLIENTS.map((client) => (
-					<ClientRow key={client.id} client={client} />
-				))}
+				{/* {MOCK_CLIENTS.map((client) => (
+					<ClientRow key={client.id} {...client} />
+				))} */}
 			</tbody>
 		</table>
 	);

@@ -1,15 +1,14 @@
 import styles from './RequestRow.module.css';
 import { useState } from 'react';
 import type { Request } from '@prisma/client';
-import { api } from '~/utils/api';
-import { toast } from 'react-hot-toast';
-import type { TRPCClientErrorBase } from '@trpc/client';
-import type { DefaultErrorShape } from '@trpc/server';
+
 import { isRequestNullable } from '~/utils/isRequestNullable';
+import { useUpdateRequest } from '~/hooks/request/useUpdateRequest';
+import { useDeleteRequest } from '~/hooks/request/useDeleteRequest';
 
 type RequestRowProps = Request & {
 	dessert: { name: string };
-	refetchTable: () => void;
+	refetchRequests: () => void;
 	refetchDesserts: () => void;
 };
 
@@ -25,29 +24,15 @@ export const RequestRow = (props: RequestRowProps) => {
 
 	const [updateTimer, setUpdateTimer] = useState<NodeJS.Timeout | undefined>();
 
-	const updateRequest = api.request.update.useMutation({
-		onSuccess: () => {
-			void props.refetchTable();
-			void props.refetchDesserts();
-			toast.success('Заявки для десерта успешно обновлены');
-		},
-		onError: (error: TRPCClientErrorBase<DefaultErrorShape>) => {
-			console.log(error);
-			toast.error('Ошибка. Не удалось обновить заявки для десерта.');
-		},
-	});
+	const updateRequest = useUpdateRequest(
+		props.refetchRequests,
+		props.refetchDesserts
+	);
 
-	const deleteRequest = api.request.delete.useMutation({
-		onSuccess: () => {
-			void props.refetchTable();
-			void props.refetchDesserts();
-			toast.success('Заявки для десерта удалены, т.к. все столбцы равны 0');
-		},
-		onError: (error: TRPCClientErrorBase<DefaultErrorShape>) => {
-			console.log(error);
-			toast.error('Ошибка. Не удалось удалить заявки для десерта.');
-		},
-	});
+	const deleteRequest = useDeleteRequest(
+		props.refetchRequests,
+		props.refetchDesserts
+	);
 
 	const handleUpdate = () => {
 		clearTimeout(updateTimer);

@@ -2,13 +2,11 @@ import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { Prisma } from '@prisma/client';
 import { z } from 'zod';
-import type { TRPCClientErrorBase } from '@trpc/client';
-import type { DefaultErrorShape } from '@trpc/server';
 
-import { api } from '~/utils/api';
 import styles from './AddDessertCard.module.css';
 import { CloseIcon } from '../CloseIcon';
 import { CheckIcon } from '../CheckIcon';
+import { useCreateDessert } from '~/hooks/dessert/useCreateDessert';
 
 type AddDessertCardProps = {
 	refetch: () => void;
@@ -20,20 +18,13 @@ export const AddDessertCard = ({ refetch }: AddDessertCardProps) => {
 	const [name, setName] = useState('');
 	const [price, setPrice] = useState(new Prisma.Decimal(0));
 	const [description, setDescription] = useState('');
+	const resetInputs = () => {
+		setName('');
+		setPrice(new Prisma.Decimal(0));
+		setDescription('');
+	};
 
-	const createDessert = api.dessert.create.useMutation({
-		onSuccess: () => {
-			toast.success('Десерт успешно добавлен.');
-			setName('');
-			setPrice(new Prisma.Decimal(0));
-			setDescription('');
-			refetch();
-		},
-		onError: (error: TRPCClientErrorBase<DefaultErrorShape>) => {
-			console.log(error);
-			toast.error('Ошибка. Не удалось добавить десерт.');
-		},
-	});
+	const createDessert = useCreateDessert(refetch, resetInputs);
 
 	const save = () => {
 		setIsActive(false);
@@ -60,11 +51,16 @@ export const AddDessertCard = ({ refetch }: AddDessertCardProps) => {
 		}
 	};
 
+	const close = () => {
+		resetInputs();
+		setIsActive(false);
+	};
+
 	return (
 		<div className={styles.dessertContainer}>
 			<div className={isActive ? '' : styles.active}>
-				<CheckIcon onClick={() => save()} />
-				<CloseIcon onClick={() => setIsActive(false)} />
+				<CheckIcon onClick={save} />
+				<CloseIcon onClick={close} />
 				<div className={styles.dessertInfo}>
 					<div className={styles.infoGroup}>
 						<label>Название</label>
