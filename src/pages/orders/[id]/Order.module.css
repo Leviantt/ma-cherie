@@ -1,0 +1,74 @@
+.employeeProfile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: #e3ece7;
+  border-radius: 1rem;
+  padding: 2em;
+  margin-bottom: .75em;
+  position: relative;
+}
+
+.employeeInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.employeeInfo button {
+  margin-left: auto;
+}
+
+.infoGroup {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid var(--primary-color);
+  padding: .25em .5em 0 0;
+  margin-bottom: 1em;
+}
+
+.infoGroup label {
+  font-size: .75rem;
+}
+
+.infoGroup input,
+.infoGroup input[disabled],
+.infoGroup input:disabled {
+  font-size: 1.15rem;
+  background-color: #fff;
+  border: none;
+  outline: none;
+  background-color: #e3ece7;
+  padding: .5em;
+  padding-left: 0;
+  padding-bottom: 0;
+}
+
+
+
+.avatar {
+  border-radius: 50%;
+  object-fit: cover; 
+}
+
+.avatarWrapper {
+  position: relative;
+}
+
+.avatarWrapper input[type='file'] {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  cursor: pointer;
+  border-radius: 50%;
+  opacity: 0;
+}
+
+@media (min-width: 1000px) {
+  .employeeProfile {
+    flex-direction: row;
+  }
+
+}
