@@ -1,9 +1,8 @@
 import styles from './SearchBar.module.css';
 type SearchBarProps = {
 	placeholder: string;
-	isDarkBackground: boolean;
+	isDarkBackground?: boolean;
 	searchInput: string;
-	// setSearchInput: Dispatch<SetStateAction<string>>;
 	setSearchInput: (newSearchInput: string) => void;
 };
 

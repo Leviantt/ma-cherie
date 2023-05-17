@@ -1,10 +1,32 @@
-.col1, .col2, .col3 { width: 15%; }
-.col4 { width: 19%; }
-.col5 { width: 12%; }
-.col6 { width: 21%; }
+.col1 { width: 8%; }
+.col2 { width: 50%; }
+.col3 { width: 14%; }
+.col4 { width: 13%; }
+.col5 { width: 15%; }
+
+.col2 a:hover {
+  text-decoration: underline;
+}
 
 @media screen and (max-width: 720px) {
 
-  .col1, .col2, .col3, .col4, .col5, .col6 { width: 100%; }
+  .col1, .col2, .col3, .col4, .col5 { width: 100%; }
 
+  
+  .col3 > div {
+    width: min-content;
+    display: flex;
+    justify-content: flex-end;
+    margin-left: auto;
+  }
+
+  .col3 {
+    position: relative;
+  }
+  .col3::before {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+  }
 }

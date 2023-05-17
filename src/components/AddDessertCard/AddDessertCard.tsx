@@ -7,12 +7,14 @@ import styles from './AddDessertCard.module.css';
 import { CloseIcon } from '../CloseIcon';
 import { CheckIcon } from '../CheckIcon';
 import { useCreateDessert } from '~/hooks/dessert/useCreateDessert';
+import { useTranslation } from 'next-i18next';
 
 type AddDessertCardProps = {
 	refetch: () => void;
 };
 
 export const AddDessertCard = ({ refetch }: AddDessertCardProps) => {
+	const { t } = useTranslation('desserts');
 	const [isActive, setIsActive] = useState<boolean>(false);
 
 	const [name, setName] = useState('');
@@ -63,29 +65,29 @@ export const AddDessertCard = ({ refetch }: AddDessertCardProps) => {
 				<CloseIcon onClick={close} />
 				<div className={styles.dessertInfo}>
 					<div className={styles.infoGroup}>
-						<label>Название</label>
+						<label>{t('name')}</label>
 						<input
 							type='text'
 							value={name ?? ''}
-							placeholder='Название'
+							placeholder={`${t('name')}`}
 							onChange={(e) => setName(e.target.value)}
 						/>
 					</div>
 					<div className={styles.infoGroup}>
-						<label>Цена</label>
+						<label>{t('price')}</label>
 						<input
 							type='text'
 							value={price.toString()}
-							placeholder='Цена'
+							placeholder={`${t('price')}`}
 							onChange={(e) => setPrice(new Prisma.Decimal(+e.target.value))}
 						/>
 					</div>
 					<div className={styles.infoGroup}>
-						<label>Описание</label>
+						<label>{t('description')}</label>
 						<textarea
 							rows={5}
 							value={description ?? ''}
-							placeholder='Описание'
+							placeholder={`${t('description')}`}
 							onChange={(e) => setDescription(e.target.value)}
 						/>
 					</div>

@@ -1,11 +1,14 @@
 import { useState } from 'react';
-import type { NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 
 import { api } from '~/utils/api';
 import { SearchBar } from '~/components/SearchBar';
 import { Grid } from '~/components/Grid';
 import { DessertCard } from '~/components/DessertCard';
 import { AddDessertCard } from '~/components/AddDessertCard';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
+import { makeCompareDesserts } from '~/utils/compare';
 
 const Desserts: NextPage = () => {
 	const {
@@ -15,27 +18,29 @@ const Desserts: NextPage = () => {
 		refetch,
 	} = api.dessert.getAll.useQuery();
 
+	const { t } = useTranslation('desserts');
+
 	const [searchInput, setSearchInput] = useState<string>('');
 
-	if (isLoading) return <div>Loading...</div>;
+	if (isLoading) return <div>{t('loading')}</div>;
 
 	if (error) {
 		console.log(error);
-		return <div>Something went wrong...</div>;
+		return <div>{t('error')}</div>;
 	}
 
-	// const sorted = employees.sort(makeCompareEmployees(searchInput));
+	desserts.sort(makeCompareDesserts(searchInput));
 
 	return (
 		<>
-			<h2>Десерты</h2>
+			<h2>{t('desserts')}</h2>
 			<SearchBar
 				isDarkBackground={false}
-				placeholder='Поиск десертов'
+				placeholder={t('search')}
 				searchInput={searchInput}
 				setSearchInput={setSearchInput}
 			/>
-			<Grid cellMinWidth={250}>
+			<Grid cellMinWidth={350}>
 				<AddDessertCard refetch={() => void refetch()} />
 				{desserts.map((dessert) => (
 					<DessertCard
@@ -47,6 +52,14 @@ const Desserts: NextPage = () => {
 			</Grid>
 		</>
 	);
+};
+
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+	return {
+		props: {
+			...(await serverSideTranslations(locale ?? 'ru', ['common', 'desserts'])),
+		},
+	};
 };
 
 export default Desserts;

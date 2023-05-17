@@ -5,6 +5,7 @@ import type { Request } from '@prisma/client';
 import { isRequestNullable } from '~/utils/isRequestNullable';
 import { useUpdateRequest } from '~/hooks/request/useUpdateRequest';
 import { useDeleteRequest } from '~/hooks/request/useDeleteRequest';
+import { useTranslation } from 'next-i18next';
 
 type RequestRowProps = Request & {
 	dessert: { name: string };
@@ -13,7 +14,6 @@ type RequestRowProps = Request & {
 };
 
 export const RequestRow = (props: RequestRowProps) => {
-	console.log(props);
 	const [mondayCount, setMondayCount] = useState(props.mondayCount);
 	const [tuesdayCount, setTuesdayCount] = useState(props.tuesdayCount);
 	const [wednesdayCount, setWednesdayCount] = useState(props.wednesdayCount);
@@ -33,7 +33,7 @@ export const RequestRow = (props: RequestRowProps) => {
 		props.refetchRequests,
 		props.refetchDesserts
 	);
-
+		const { t } = useTranslation('requests');
 	const handleUpdate = () => {
 		clearTimeout(updateTimer);
 		const timer = setTimeout(() => {
@@ -60,7 +60,7 @@ export const RequestRow = (props: RequestRowProps) => {
 			<td className={styles.col1} data-label='Десерт'>
 				<label>{props.dessert.name}</label>
 			</td>
-			<td className={styles.col2} data-label='ПН'>
+			<td className={styles.col2} data-label={`${t('mon')}`}>
 				<input
 					className={styles.input}
 					type='number'
@@ -69,7 +69,7 @@ export const RequestRow = (props: RequestRowProps) => {
 					onChange={(e) => setMondayCount(+e.target.value)}
 				/>
 			</td>
-			<td className={styles.col2} data-label='ВТ'>
+			<td className={styles.col2} data-label={`${t('tue')}`}>
 				<input
 					className={styles.input}
 					type='number'
@@ -78,7 +78,7 @@ export const RequestRow = (props: RequestRowProps) => {
 					onChange={(e) => setTuesdayCount(+e.target.value)}
 				/>
 			</td>
-			<td className={styles.col2} data-label='СР'>
+			<td className={styles.col2} data-label={`${t('wed')}`}>
 				<input
 					className={styles.input}
 					type='number'
@@ -87,7 +87,7 @@ export const RequestRow = (props: RequestRowProps) => {
 					onChange={(e) => setWednesdayCount(+e.target.value)}
 				/>
 			</td>
-			<td className={styles.col2} data-label='ЧТ'>
+			<td className={styles.col2} data-label={`${t('thu')}`}>
 				<input
 					className={styles.input}
 					type='number'
@@ -96,7 +96,7 @@ export const RequestRow = (props: RequestRowProps) => {
 					onChange={(e) => setThursdayCount(+e.target.value)}
 				/>
 			</td>
-			<td className={styles.col2} data-label='ПТ'>
+			<td className={styles.col2} data-label={`${t('fri')}`}>
 				<input
 					className={styles.input}
 					type='number'
@@ -105,7 +105,7 @@ export const RequestRow = (props: RequestRowProps) => {
 					onChange={(e) => setFridayCount(+e.target.value)}
 				/>
 			</td>
-			<td className={styles.col2} data-label='СБ'>
+			<td className={styles.col2} data-label={`${t('sat')}`}>
 				<input
 					className={styles.input}
 					type='number'
@@ -114,7 +114,7 @@ export const RequestRow = (props: RequestRowProps) => {
 					onChange={(e) => setSaturdayCount(+e.target.value)}
 				/>
 			</td>
-			<td className={styles.col2} data-label='ВС'>
+			<td className={styles.col2} data-label={`${t('sun')}`}>
 				<input
 					className={styles.input}
 					type='number'

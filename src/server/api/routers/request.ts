@@ -58,7 +58,6 @@ export const requestRouter = createTRPCRouter({
 		)
 		.mutation(({ ctx, input }) => {
 			const { dessertId, ...newRequest } = input;
-			console.log(newRequest);
 			return ctx.prisma.request.create({
 				data: {
 					...newRequest,

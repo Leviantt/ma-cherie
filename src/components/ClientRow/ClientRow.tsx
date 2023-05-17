@@ -1,33 +1,43 @@
-import type { Client } from '@prisma/client';
 import styles from './ClientRow.module.css';
+import { useTranslation } from 'next-i18next';
+import { calculateTotalClientExpenses } from '~/utils/calculateTotal';
+import type { ClientExtended } from '~/types/ClientExtended';
+import { getFirstManager } from '~/utils/getFirstManager';
+import { getLastOrder } from '~/utils/getLastOrder';
+import Link from 'next/link';
 
 export const ClientRow = ({
 	fullName,
 	registrationDate,
-	// lastOrder,
-	// totalExpenses,
+	orders,
 	source,
-}: // manager,
-Client) => {
+}: ClientExtended) => {
+	const { t } = useTranslation('clients');
+	const lastOrder = getLastOrder(orders);
+	const manager = getFirstManager(orders);
 	return (
 		<tr>
-			<td className={styles.col1} data-label='Клиент'>
+			<td className={styles.col1} data-label={t('client')}>
 				{fullName}
 			</td>
-			<td className={styles.col2} data-label='Дата регистрации'>
+			<td className={styles.col2} data-label={t('registration-date')}>
 				{registrationDate.toLocaleDateString()}
 			</td>
-			<td className={styles.col3} data-label='Последняя покупка'>
-				{/* {lastOrder} */}
+			<td className={styles.col3} data-label={t('last-order')}>
+				<Link href={lastOrder ? `/orders/${lastOrder.id}` : ''}>
+					{lastOrder?.name}
+				</Link>
 			</td>
-			<td className={styles.col4} data-label='Общая сумма покупок'>
-				{/* {totalExpenses} */}
+			<td className={styles.col4} data-label={t('total')}>
+				{calculateTotalClientExpenses(orders)}₽
 			</td>
-			<td className={styles.col5} data-label='Источник'>
+			<td className={styles.col5} data-label={t('source')}>
 				{source}
 			</td>
-			<td className={styles.col6} data-label='Менеджер'>
-				{/* {manager} */}
+			<td className={styles.col6} data-label={t('manager')}>
+				<Link href={manager ? `/employees/${manager.id}` : ''}>
+					{manager?.fullName}
+				</Link>
 			</td>
 		</tr>
 	);

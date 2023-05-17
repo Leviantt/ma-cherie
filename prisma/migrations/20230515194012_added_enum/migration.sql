@@ -1,0 +1,5 @@
+-- CreateEnum
+CREATE TYPE "DeliveryMethod" AS ENUM ('SELF_DELIVERY', 'BY_COURIER');
+
+-- AlterTable
+ALTER TABLE "Client" ALTER COLUMN "registrationDate" SET DEFAULT CURRENT_TIMESTAMP;

@@ -3,7 +3,7 @@ import styles from './Button.module.css';
 import type { CustomButtonStyles } from '~/types/CustomButtonStyles';
 
 type ButtonProps = {
-	customStyles: CustomButtonStyles;
+	customStyles?: CustomButtonStyles;
 	onClick?: () => void | Promise<void>;
 	readonly children?: ReactNode;
 };
@@ -16,6 +16,11 @@ export const filterButtonStyles: CustomButtonStyles = {
 
 export const basicButtonStyles: CustomButtonStyles = {
 	backgroundColor: '#a2c1b2',
+	color: '#fff',
+};
+
+export const darkButtonStyles: CustomButtonStyles = {
+	backgroundColor: 'var(--primary-color)',
 	color: '#fff',
 };
 

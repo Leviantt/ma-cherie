@@ -7,7 +7,6 @@ type MenuIconProps = {
 };
 
 export const MenuIcon = ({ toggleSidebar, isSidebarOpen }: MenuIconProps) => {
-	// console.log(`MenuIcon: isOpen = ${isSidebarOpen.toString()}`);
 	return (
 		<label
 			className={

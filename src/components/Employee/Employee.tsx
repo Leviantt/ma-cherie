@@ -15,6 +15,7 @@ import { useCreateEmployee } from '~/hooks/employee/useCreateEmployee';
 import { useUpdateEmployee } from '~/hooks/employee/useUpdateEmployee';
 import { useDeleteEmployee } from '~/hooks/employee/useDeleteEmployee';
 import type { NewEmployeeData } from '~/types/NewEmployeeData';
+import { useTranslation } from 'next-i18next';
 
 export const Employee = (employee: Partial<EmployeeType>) => {
 	const [isEditable, setIsEditable] = useState<boolean>(
@@ -37,6 +38,7 @@ export const Employee = (employee: Partial<EmployeeType>) => {
 	const updateEmployee = useUpdateEmployee();
 	const deleteEmployee = useDeleteEmployee();
 
+	const { t } = useTranslation('employees');
 	const save = async () => {
 		const newValues: NewEmployeeData = {
 			fullName,
@@ -69,7 +71,7 @@ export const Employee = (employee: Partial<EmployeeType>) => {
 						workEmail: z.string().email(),
 						pathToAvatarPhoto: z.string().optional(),
 						position: z.string(),
-						age: z.number().int(),
+						age: z.number().int().nonnegative(),
 						hireDate: z.date(),
 					})
 					.parse(newValues);
@@ -96,7 +98,7 @@ export const Employee = (employee: Partial<EmployeeType>) => {
 						<ModalConfirm
 							isOpen={isModalConfirmOpen}
 							closeModal={() => setIsModalConfirmOpen(false)}
-							title='Удалить сотрудника?'
+							title={`${t('delete-employee')}`}
 							action={() => deleteEmployee.mutate({ id: employee.id! })}
 						/>
 						<DeleteIcon
@@ -116,6 +118,7 @@ export const Employee = (employee: Partial<EmployeeType>) => {
 					></div>
 					<input
 						type='file'
+						accept='image/*'
 						disabled={!isEditable}
 						className={!isEditable ? styles.disabled : ''}
 						onChange={(e) => uploadToClient(e, setAvatar, setAvatarURL)}
@@ -123,79 +126,80 @@ export const Employee = (employee: Partial<EmployeeType>) => {
 				</div>
 				<div className={styles.employeeInfo}>
 					<div className={styles.infoGroup}>
-						<label>Имя</label>
+						<label>{t('name')}</label>
 						<input
 							disabled={!isEditable}
 							type='text'
 							value={fullName ?? ''}
-							placeholder='Имя'
+							placeholder={`${t('name')}`}
 							onChange={(e) => setFullName(e.target.value)}
 						/>
 					</div>
 					<div className={styles.infoGroup}>
-						<label>Телефон</label>
+						<label>{t('phone')}</label>
 						<input
 							disabled={!isEditable}
 							type='text'
 							value={phone ?? ''}
-							placeholder='Телефон'
+							placeholder={`${t('phone')}`}
 							onChange={(e) => setPhone(e.target.value)}
 						/>
 					</div>
 					<div className={styles.infoGroup}>
-						<label>Почта</label>
+						<label>{t('email')}</label>
 						<input
 							disabled={!isEditable}
 							type='text'
 							value={email ?? ''}
-							placeholder='Почта'
+							placeholder={`${t('email')}`}
 							onChange={(e) => setEmail(e.target.value)}
 						/>
 					</div>
 					<div className={styles.infoGroup}>
-						<label>Рабочая почта</label>
+						<label>{t('work-email')}</label>
 						<input
 							disabled={!isEditable}
 							type='text'
 							value={workEmail ?? ''}
-							placeholder='Рабочая почта'
+							placeholder={`${t('work-email')}`}
 							onChange={(e) => setWorkEmail(e.target.value)}
 						/>
 					</div>
 					<div className={styles.infoGroup}>
-						<label>Должность</label>
+						<label>{t('position')}</label>
 						<input
 							disabled={!isEditable}
 							type='text'
 							value={position ?? ''}
-							placeholder='Должность'
+							placeholder={`${t('position')}`}
 							onChange={(e) => setPosition(e.target.value)}
 						/>
 					</div>
 					<div className={styles.infoGroup}>
-						<label>Возраст</label>
+						<label>{t('age')}</label>
 						<input
 							disabled={!isEditable}
 							type='number'
 							step={1}
-							value={age ?? ''}
-							placeholder='Возраст'
+							min={0}
+							value={age?.toString() ?? ''}
+							placeholder={`${t('age')}`}
 							onChange={(e) => setAge(+e.target.value)}
 						/>
 					</div>
 					<div className={styles.infoGroup}>
-						<label>Дата устройства в компанию</label>
+						<label>{t('hire-date')}</label>
 						<input
 							disabled={!isEditable}
 							type='date'
 							value={hireDate.toISOString().substring(0, 10)}
-							placeholder='Дата устройства'
+							placeholder={`${t('hire-date')}`}
 							onChange={(e) => setHireDate(new Date(e.target.value))}
 						/>
 					</div>
 					<br />
 					<Button customStyles={basicButtonStyles} onClick={() => save()}>
-						Сохранить
+						{t('save')}
 					</Button>
 				</div>
 			</div>

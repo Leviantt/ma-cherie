@@ -1,0 +1,16 @@
+{
+	"desserts": "Desserts",
+	"search": "Desserts search",
+	"name": "Name",
+	"price": "Price",
+	"description": "Description",
+	"error": "Something went wrong",
+	"loading": "Loading...",
+	"add-success": "Dessert has been added successfully",
+	"add-error": "Error. Couldn't add dessert.",
+	"update-success": "Dessert data has been successfully updated.",
+	"update-error": "Error. Dessert data could not be updated.",
+	"delete-success": "The dessert was successfully deleted.",
+	"delete-error": "Error. Couldn't delete dessert.",
+	"delete-dessert": "Delete dessert?"
+}

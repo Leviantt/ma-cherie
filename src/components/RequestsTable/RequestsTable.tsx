@@ -3,6 +3,7 @@ import { RequestRow } from '../RequestRow';
 import styles from './RequestsTable.module.css';
 import { AddRequestRow } from '../AddRequestRow';
 import { filterNewDesserts } from '~/utils/filterNewDesserts';
+import { useTranslation } from 'next-i18next';
 
 type RequestsTableProps = {
 	address: string;
@@ -23,17 +24,17 @@ export const RequestsTable = ({ address }: RequestsTableProps) => {
 		refetch: refetchDesserts,
 	} = api.dessert.getAll.useQuery();
 
-	if (isLoading || isLoadingDesserts) return <div>Loading...</div>;
+	const { t } = useTranslation('requests');
+
+	if (isLoading || isLoadingDesserts) return <div>{t('loading')}</div>;
 
 	if (error || dessertsError) {
 		console.log(error);
 		console.log(dessertsError);
-		return <div>Something went wrong...</div>;
+		return <div>{t('error')}</div>;
 	}
 
-	const sorted = requests.sort((a, b) =>
-		a.dessert.name.localeCompare(b.dessert.name)
-	);
+	requests.sort((a, b) => a.dessert.name.localeCompare(b.dessert.name));
 
 	return (
 		<div className={styles.requestsTableContainer}>
@@ -47,33 +48,33 @@ export const RequestsTable = ({ address }: RequestsTableProps) => {
 				<thead>
 					<tr>
 						<th scope='col' className={styles.col1}>
-							Десерт
+							{t('dessert')}
 						</th>
 						<th scope='col' className={styles.col2}>
-							ПН
+							{t('mon')}
 						</th>
 						<th scope='col' className={styles.col2}>
-							ВТ
+							{t('tue')}
 						</th>
 						<th scope='col' className={styles.col2}>
-							СР
+							{t('wed')}
 						</th>
 						<th scope='col' className={styles.col2}>
-							ЧТ
+							{t('thu')}
 						</th>
 						<th scope='col' className={styles.col2}>
-							ПТ
+							{t('fri')}
 						</th>
 						<th scope='col' className={styles.col2}>
-							СБ
+							{t('sat')}
 						</th>
 						<th scope='col' className={styles.col2}>
-							ВС
+							{t('sun')}
 						</th>
 					</tr>
 				</thead>
 				<tbody>
-					{sorted.map((request) => (
+					{requests.map((request) => (
 						<RequestRow
 							key={request.id}
 							{...request}

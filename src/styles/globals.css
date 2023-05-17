@@ -38,6 +38,10 @@ h2 {
   text-transform: uppercase;
 }
 
+.container {
+  max-width: 1400px;
+}
+
 * {
   /* outline: 1px magenta solid; */
 }

@@ -1,0 +1,50 @@
+.container {
+  display: flex;
+  padding: 1em;
+  border-top: 1px var(--primary-color) solid;
+  justify-content: space-between;
+  /* transition: all ; */
+  /* transition: all 4s ease-in-out; */
+  min-height: 150px;
+}
+
+.container h3 {
+  padding-left: .75em;
+}
+
+.container:last-child {
+  border-bottom: 1px var(--primary-color) solid;
+  margin-bottom: 1em;
+}
+
+.details p {
+  margin: .5em 1em;
+  /* font-size: .85rem; */
+}
+
+.details .description {
+  font-size: 1rem;
+}
+
+.count {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.count button {
+  font-size: .9rem;
+  background-color: var(--primary-color);
+  outline: none;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  margin-left: .5em;
+  padding: .15em .6em;
+  cursor: pointer;
+}
+
+.notAdded .count button {
+  opacity: 0;
+  pointer-events: none;
+}

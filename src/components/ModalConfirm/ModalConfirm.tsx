@@ -1,6 +1,6 @@
+import { useTranslation } from 'next-i18next';
 import styles from './ModalConfirm.module.css';
 import Modal from 'react-modal';
-
 
 Modal.setAppElement('#modal-root');
 
@@ -17,18 +17,18 @@ export const ModalConfirm = ({
 	closeModal,
 	action,
 }: ModalConfirmProps) => {
+	const { t } = useTranslation('common');
 	return (
 		<Modal
 			isOpen={isOpen}
 			onRequestClose={closeModal}
-			// style={customStyles}
-			contentLabel='Подтверждение'
+			contentLabel={`${t('confirmation')}`}
 			className={styles.modal}
 		>
 			<h4>{title}</h4>
 			<div className={styles.buttons}>
-				<button onClick={closeModal}>Нет</button>
-				<button onClick={action}>Да</button>
+				<button onClick={action}>{t('yes')}</button>
+				<button onClick={closeModal}>{t('no')}</button>
 			</div>
 		</Modal>
 	);

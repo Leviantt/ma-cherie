@@ -1,33 +1,65 @@
-
 import styles from './OrdersTable.module.css';
 import { OrderRow } from '../OrderRow';
+import { api } from '~/utils/api';
+import type { Status } from '@prisma/client';
+import { filterByStatus } from '~/utils/filterByStatus';
+import { compareByDate } from '~/utils/compareByDate';
+import { useTranslation } from 'next-i18next';
 
+export type MOCK_ORDER = {
+	id: number;
+	name: string;
+	status: Status;
+	createdAt: Date;
+	desserts: number;
+};
 
-export const OrdersTable = () => {
-	// const {  } = api.
+type OrdersTableProps = {
+	filterByStatusFlags: boolean[];
+};
+
+export const OrdersTable = ({ filterByStatusFlags }: OrdersTableProps) => {
+	const { t } = useTranslation('orders');
+	const {
+		data: orders,
+		isLoading,
+		error,
+		refetch,
+	} = api.order.getAllWithDesserts.useQuery();
+
+	if (isLoading) return <div>{t('loading')}</div>;
+
+	if (error) {
+		console.log(error);
+		return <div>{t('error')}</div>;
+	}
+	const filtered = filterByStatus(orders, filterByStatusFlags);
+	filtered.sort(compareByDate);
 	return (
 		<table className={styles.ordersTable}>
 			<thead>
 				<tr>
 					<th scope='col' className={styles.col1}>
-						Номер
+						{t('number')}
 					</th>
 					<th scope='col' className={styles.col2}>
-						Название
+						{t('name')}
 					</th>
 					<th scope='col' className={styles.col3}>
-						Статус
+						{t('status')}
 					</th>
 					<th scope='col' className={styles.col4}>
-						Время создания
+						{t('created-at')}
 					</th>
 					<th scope='col' className={styles.col5}>
-						Цена
+						{t('price')}
 					</th>
 				</tr>
 			</thead>
 			<tbody>
-				
+				{filtered.map((order) => (
+					<OrderRow key={order.id} {...order} refetch={() => void refetch()} />
+				))}
 			</tbody>
 		</table>
 	);

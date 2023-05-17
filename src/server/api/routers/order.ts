@@ -3,6 +3,7 @@ import { createTRPCRouter, publicProcedure } from '~/server/api/trpc';
 import { type Prisma, Status } from '@prisma/client';
 import type { OrderWithDesserts } from '~/types/OrderWithDesserts';
 import type { OrderExtended } from '~/types/OrderExtended';
+import { DeliveryMethodEnum } from '~/utils/validateOrder';
 
 export const orderRouter = createTRPCRouter({
 	getAllWithDesserts: publicProcedure.query(
@@ -40,7 +41,7 @@ export const orderRouter = createTRPCRouter({
 				name: z.string().min(2),
 				address: z.string(),
 				clientId: z.number().int().positive(),
-				deliveryMethod: z.string(),
+				deliveryMethod: DeliveryMethodEnum,
 				deliveryPrice: z.number(),
 				managerId: z.number().int().positive(),
 				comment: z.string(),
@@ -62,35 +63,65 @@ export const orderRouter = createTRPCRouter({
 				},
 			});
 		}),
+	createWithNewClient: publicProcedure
+		.input(
+			z.object({
+				name: z.string().min(2),
+				address: z.string(),
+				deliveryMethod: DeliveryMethodEnum,
+				deliveryPrice: z.number(),
+				clientData: z.object({
+					fullName: z.string(),
+					birthdate: z.date(),
+					phone: z.string(),
+					source: z.string(),
+				}),
+				managerId: z.number().int().positive(),
+				comment: z.string(),
+				desserts: z.array(
+					z.object({
+						dessertId: z.number().int().positive(),
+						dessertsNumber: z.number().int().positive(),
+					})
+				),
+			})
+		)
+		.mutation(({ ctx, input }) => {
+			const { clientData, ...orderDataWithDesserts } = input;
+			const { desserts, ...orderData } = orderDataWithDesserts;
+			return ctx.prisma.client.create({
+				data: {
+					...clientData,
+					orders: {
+						create: [
+							{
+								...orderData,
+								desserts: {
+									createMany: { data: desserts },
+								},
+							},
+						],
+					},
+				},
+			});
+		}),
 	delete: publicProcedure
 		.input(z.object({ id: z.number().int().positive() }))
-		.mutation(({ ctx, input }) => {
+		.mutation(async ({ ctx, input }) => {
+			await ctx.prisma.order.update({
+				where: {
+					id: input.id,
+				},
+				data: {
+					desserts: {
+						deleteMany: {},
+					},
+				},
+			});
 			return ctx.prisma.order.delete({
 				where: {
 					id: input.id,
 				},
-			});
-		}),
-	update: publicProcedure
-		.input(
-			z.object({
-				id: z.number().int().positive(),
-				name: z.string().min(2).optional(),
-				address: z.string().optional(),
-				clientId: z.number().int().positive().optional(),
-				deliveryMethod: z.string().optional(),
-				deliveryPrice: z.number().optional(),
-				managerId: z.number().int().positive().optional(),
-				comment: z.string().optional(),
-			})
-		)
-		.mutation(({ ctx, input }) => {
-			const { id, ...newData } = input;
-			return ctx.prisma.order.update({
-				where: {
-					id,
-				},
-				data: { ...newData },
 			});
 		}),
 	addDessert: publicProcedure

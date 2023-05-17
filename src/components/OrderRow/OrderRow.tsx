@@ -1,8 +1,10 @@
-import { convertDatetimeToString } from '~/utils/convertDatetimeToString';
+import { convertDatetimeToString } from '~/utils/date';
 import styles from './OrderRow.module.css';
 import type { OrderWithDesserts } from '~/types/OrderWithDesserts';
 import { getTotalPrice } from '~/utils/getTotalPrice';
-import { convertOrderStatus } from '~/utils/convertOrderStatus';
+import { SetStatus } from '../SetStatus';
+import Link from 'next/link';
+import { useTranslation } from 'next-i18next';
 
 export const OrderRow = ({
 	id,
@@ -10,23 +12,26 @@ export const OrderRow = ({
 	status,
 	createdAt,
 	desserts,
-}: OrderWithDesserts) => {
+	deliveryPrice,
+	refetch,
+}: OrderWithDesserts & { refetch: () => void }) => {
+	const { t } = useTranslation('orders');
 	return (
 		<tr>
-			<td className={styles.col1} data-label='Номер'>
+			<td className={styles.col1} data-label={t('number')}>
 				{id}
 			</td>
-			<td className={styles.col2} data-label='Название'>
-				{name}
+			<td className={styles.col2} data-label={t('name')}>
+				<Link href={`/orders/${id}`}>{name}</Link>
 			</td>
-			<td className={styles.col4} data-label='Статус'>
-				{convertOrderStatus(status)}
+			<td className={styles.col3} data-label={t('status')}>
+				<SetStatus status={status} orderId={id} refetch={refetch} />
 			</td>
-			<td className={styles.col5} data-label='Время создания'>
+			<td className={styles.col4} data-label={t('created-at')}>
 				{convertDatetimeToString(createdAt)}
 			</td>
-			<td className={styles.col6} data-label='Цена'>
-				{getTotalPrice(desserts.map((d) => d.dessert))}
+			<td className={styles.col5} data-label={t('price')}>
+				{getTotalPrice(desserts) + +deliveryPrice}
 			</td>
 		</tr>
 	);

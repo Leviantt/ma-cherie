@@ -1,0 +1,104 @@
+.container {
+  background-color: #e3ece7;
+  border-radius: 7px;
+  display: flex;
+  flex-direction: column;
+}
+
+.container h2 {
+  margin: 1em;
+  margin-left: 1.65em;
+}
+
+.container div > button{
+  width: min-content;
+  height: min-content;
+  margin-top: auto;
+  margin-left: auto;
+  margin-right: 1em;
+  font-size: 1.15rem;
+}
+
+.infoGroup {
+  display: flex;
+  flex-direction: column;
+  padding: .25em .5em 0 0;
+  margin-bottom: 1em;
+}
+
+.infoGroup label {
+  font-size: .75rem;
+  margin-bottom: .25em;
+  margin-left: .75em;
+}
+
+.infoGroup input,
+.infoGroup textarea {
+  font-size: 1.15rem;
+  border: 1px solid transparent;
+  border: 1px solid #a7bbb1; 
+  outline: none;
+  background-color: #e3ece7;
+  padding: .25em .5em;
+  border-radius: .5rem;
+}
+
+.infoGroup input {
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+}
+
+.infoGroup textarea {
+  resize: none;
+  overflow: auto;
+  font-family: Inter;
+}
+
+.infoGroup select {
+  padding: .25em .5em;
+  font-size: 1.15rem;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  background-color: hsl(156, 20%, 87%);
+  border: 1px solid #a7bbb1; 
+}
+
+.infoGroup input:focus,
+.infoGroup select:focus,
+.infoGroup textarea:focus {
+  border: 1px solid var(--primary-color);
+}
+
+.comment {
+  grid-column: 1 / -1;
+}
+
+.total h3 {
+  padding: 0 1em;
+  margin-bottom: 0;
+}
+
+.total label {
+  font-size: 1.15rem;
+}
+
+.client select {
+ margin-right: 3em;
+}
+
+.client {
+  position: relative;
+}
+
+.client > div {
+ position: absolute;
+  right: 7px;
+  top: 42%;
+}
+
+.container > input {
+  margin: .5em auto 1.5em;
+  width: 92%;
+  /* border-top: 1px solid var(--primary-color); */
+}

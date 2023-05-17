@@ -1,0 +1,15 @@
+.plusCross {
+  cursor: pointer;
+  display: flex;
+}
+
+.plusCross svg {
+  aspect-ratio: 1;
+  fill: var(--primary-color);
+  width: 36px;
+}
+
+.plusCross.hidden {
+  opacity: 0;
+  pointer-events: none;
+}

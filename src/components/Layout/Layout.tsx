@@ -8,9 +8,9 @@ type LayoutProps = {
 
 export const Layout = ({ children }: LayoutProps) => {
 	return (
-		<>
+		<div className='container'>
 			<Navbar />
 			<main className={styles.content}>{children}</main>
-		</>
+		</div>
 	);
 };

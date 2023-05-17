@@ -4,48 +4,11 @@ import styles from './Navbar.module.css';
 import { Logo } from '../Logo/';
 import { MenuIcon } from '../MenuIcon';
 import { NavLink } from '../NavLink';
-
-const navItems = [
-	{
-		id: 1,
-		href: '/',
-		title: 'Главная',
-	},
-	{
-		id: 2,
-		href: '/employees',
-		title: 'Сотрудники',
-	},
-	{
-		id: 3,
-		href: '/requests',
-		title: 'Заявки',
-	},
-	{
-		id: 4,
-		href: '/clients',
-		title: 'Клиенты',
-	},
-	{
-		id: 5,
-		href: '/orders',
-		title: 'Заказы',
-	},
-	{
-		id: 6,
-		href: '/desserts',
-		title: 'Десерты',
-	},
-	{
-		id: 7,
-		href: '/settings',
-		title: 'Настройки',
-	},
-];
+import { useNavItems } from './useNavItems';
 
 export const Navbar = () => {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
-
+	const navItems = useNavItems();
 	const toggle = () => setIsOpen((prevIsOpen) => !prevIsOpen);
 
 	return (

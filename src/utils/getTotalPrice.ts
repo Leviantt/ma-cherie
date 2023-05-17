@@ -1,8 +1,10 @@
-import type { Dessert } from '@prisma/client';
+import type { Dessert, DessertsOrders } from '@prisma/client';
 
-export function getTotalPrice(desserts: Dessert[]): number {
+export function getTotalPrice(
+	desserts: (DessertsOrders & { dessert: Dessert })[]
+): number {
 	return desserts.reduce(
-		(sum: number, dessert: Dessert) => +dessert.price + sum,
+		(sum: number, d) => d.dessertsNumber * +d.dessert.price + sum,
 		0
 	);
 }

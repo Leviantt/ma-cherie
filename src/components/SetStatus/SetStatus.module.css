@@ -1,0 +1,51 @@
+.dropdownContainer {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: .5em 1em;
+  cursor: pointer;
+}
+
+.dropdownContainer {
+  cursor: default;
+}
+
+.status {
+  display: block;
+  font-weight: 700;
+  display: block;
+  text-decoration: none;
+  text-align: center;
+  padding: .5em 1em;
+}
+.dropdownContainer ul.dropdown {
+  background: #f7f7f7;
+  position: absolute;
+  z-index: 999;
+  display: none;
+  left: 5px;
+  right: -5px;
+}
+.dropdownContainer ul .status:hover {
+  background: #dde0df;
+}
+.dropdownContainer.editable ul .status:hover {
+  background: transparent;
+}
+
+.dropdownContainer:hover {
+  background: #f7f7f7;
+}
+
+.dropdownContainer.editable:hover {
+  background: transparent;
+}
+
+.dropdownContainer:hover ul.dropdown {
+  display: block;
+}
+
+.dropdownContainer.editable:hover ul.dropdown {
+  display: none;
+}

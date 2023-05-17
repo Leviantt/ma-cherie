@@ -1,74 +1,140 @@
-.employeeProfile {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
+.container {
   background-color: #e3ece7;
-  border-radius: 1rem;
-  padding: 2em;
-  margin-bottom: .75em;
-  position: relative;
-}
-
-.employeeInfo {
+  border-radius: 7px;
   display: flex;
   flex-direction: column;
 }
 
-.employeeInfo button {
+.container h2 {
+  margin: 1em;
+  margin-left: 1.65em;
+}
+
+.container div > button{
+  width: min-content;
+  height: min-content;
+  margin-top: auto;
   margin-left: auto;
+  margin-right: 1em;
+  font-size: 1.15rem;
+}
+
+.container > div:nth-child(2) {
+  gap: .25em 1em;
+}
+
+.heading {
+  display: flex;
+  justify-content: space-between;
+}
+
+.heading > div {
+  position: static;
+  margin: 1.5em;
+  /* padding: 1rem; */
 }
 
 .infoGroup {
   display: flex;
   flex-direction: column;
-  border-bottom: 1px solid var(--primary-color);
   padding: .25em .5em 0 0;
   margin-bottom: 1em;
 }
 
 .infoGroup label {
-  font-size: .75rem;
+  font-size: .9rem;
+  margin-left: .75em;
 }
 
 .infoGroup input,
-.infoGroup input[disabled],
-.infoGroup input:disabled {
+.infoGroup textarea,
+.infoGroup textarea[disabled],
+.infoGroup textarea:disabled,
+.infoGroup p {
+  color: #000;
   font-size: 1.15rem;
-  background-color: #fff;
   border: none;
   outline: none;
-  background-color: #e3ece7;
-  padding: .5em;
-  padding-left: 0;
-  padding-bottom: 0;
+  background-color: #f3faf3;
+  padding: .35em .65em;
+  border-radius: 5px;
+  margin-bottom: 0;
+}
+
+.infoGroup input {
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+}
+
+.infoGroup textarea {
+  resize: none;
+  overflow: auto;
+  font-family: Inter;
+}
+
+.infoGroup select {
+  padding: .25em .5em;
+  font-size: 1.15rem;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  background-color: hsl(156, 20%, 87%);
+  border: 1px solid #a7bbb1; 
+}
+
+.infoGroup input:focus,
+.infoGroup select:focus,
+.infoGroup textarea:focus {
+  border: 1px solid var(--primary-color);
 }
 
 
 
-.avatar {
-  border-radius: 50%;
-  object-fit: cover; 
+.comment {
+  grid-column: 1 / -1;
 }
 
-.avatarWrapper {
-  position: relative;
+.comment label {
+  margin-bottom: 1em;
 }
 
-.avatarWrapper input[type='file'] {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  cursor: pointer;
-  border-radius: 50%;
-  opacity: 0;
+.total h3 {
+  padding: 0 1em;
+  margin-bottom: 0;
 }
 
-@media (min-width: 1000px) {
-  .employeeProfile {
-    flex-direction: row;
+.total label {
+  font-size: 1.15rem;
+}
+
+.infoGroup.manager p:hover {
+  text-decoration: underline;
+}
+
+.infoGroup.status p {
+  padding: 0;
+  /* padding: .35em .65em; */
+  margin-top: 1em;
+}
+
+.infoGroup.status p > div {
+  width: auto;
+  height: min-content;
+  padding: 0;
+}
+
+.infoGroup.status p > div > div:first-child {
+  padding: 0.35em 0.65em;
+}
+
+
+.container > input {
+  margin: .5em auto 1.5em;
+  width: 92%;
+}
+
+@media (max-width: 350px) {
+  .infoGroup {
+    width: 80%;
   }
-
 }

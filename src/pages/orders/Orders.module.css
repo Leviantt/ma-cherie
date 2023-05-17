@@ -6,3 +6,32 @@
 .buttons button {
   margin-right: 2em;
 }
+
+.filterButtons {
+  display: flex;
+}
+
+.filterButtons > div:last-child {
+  margin-left: auto;
+}
+
+.filterButtons button {
+  margin: .85em;
+}
+
+
+
+@media (max-width: 800px) {
+  .filterButtons {
+    flex-direction: column;
+  }
+
+  .filterButtons button {
+    margin: .5em;
+  }
+  
+
+  .filterButtons > div:last-child {
+    margin-left: unset;
+  }
+}

@@ -5,6 +5,7 @@
   fill: red;
   top: 1.5rem;
   right: 4.5rem;
+  z-index: 100;
 }
 
 .delete.active {

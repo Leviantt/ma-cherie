@@ -9,6 +9,8 @@ import { DeleteIcon } from '../DeleteIcon/DeleteIcon';
 import { ModalConfirm } from '../ModalConfirm';
 import { useUpdateDessert } from '~/hooks/dessert/useUpdateDessert';
 import { useDeleteDessert } from '~/hooks/dessert/useDeleteDessert';
+import { ModalDetailedDessert } from '../ModalDetailedDessert';
+import { useTranslation } from 'next-i18next';
 
 type DessertCardProps = {
 	dessert: Dessert;
@@ -16,8 +18,11 @@ type DessertCardProps = {
 };
 
 export const DessertCard = ({ dessert, refetch }: DessertCardProps) => {
+	const { t } = useTranslation('desserts');
 	const [isEditable, setIsEditable] = useState<boolean>(false);
 	const [isModalConfirmOpen, setIsModalConfirmOpen] = useState<boolean>(false);
+	const [isModalDetailedDessertOpen, setIsModalDetailedDessertOpen] =
+		useState<boolean>(false);
 
 	const [name, setName] = useState(dessert.name);
 	const [price, setPrice] = useState(dessert.price);
@@ -61,11 +66,18 @@ export const DessertCard = ({ dessert, refetch }: DessertCardProps) => {
 			<ModalConfirm
 				isOpen={isModalConfirmOpen}
 				closeModal={() => setIsModalConfirmOpen(false)}
-				title='Удалить десерт?'
+				title={t('delete-dessert')}
 				action={() => deleteDessert.mutate({ id: dessert.id })}
 			/>
-
-			<div className={styles.dessertContainer}>
+			<ModalDetailedDessert
+				isOpen={isModalDetailedDessertOpen}
+				closeModal={() => setIsModalDetailedDessertOpen(false)}
+				{...dessert}
+			/>
+			<div
+				className={styles.dessertContainer}
+				// onClick={() => setIsModalDetailedDessertOpen(true)}
+			>
 				<EditIcon isActive={isEditable} onClick={save} />
 				<DeleteIcon
 					isActive={isEditable}
@@ -73,35 +85,35 @@ export const DessertCard = ({ dessert, refetch }: DessertCardProps) => {
 				/>
 				<div className={styles.dessertInfo}>
 					<div className={styles.infoGroup}>
-						<label>Название</label>
+						<label>{t('name')}</label>
 						<input
 							disabled={!isEditable}
 							className={isEditable ? styles.editable : ''}
 							type='text'
 							value={name ?? ''}
-							placeholder='Название'
+							placeholder={`${t('name')}`}
 							onChange={(e) => setName(e.target.value)}
 						/>
 					</div>
 					<div className={styles.infoGroup}>
-						<label>Цена</label>
+						<label>{t('price')}</label>
 						<input
 							disabled={!isEditable}
 							className={isEditable ? styles.editable : ''}
 							type='text'
 							value={price?.toString() ?? ''}
-							placeholder='Цена'
+							placeholder={`${t('price')}`}
 							onChange={(e) => setPrice(new Prisma.Decimal(+e.target.value))}
 						/>
 					</div>
 					<div className={styles.infoGroup}>
-						<label>Описание</label>
+						<label>{t('description')}</label>
 						<textarea
 							disabled={!isEditable}
 							className={isEditable ? styles.editable : ''}
 							rows={5}
 							value={description ?? ''}
-							placeholder='Описание'
+							placeholder={`${t('description')}`}
 							onChange={(e) => setDescription(e.target.value)}
 						/>
 					</div>

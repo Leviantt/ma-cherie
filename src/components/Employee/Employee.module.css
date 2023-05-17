@@ -42,6 +42,7 @@
   padding: .5em;
   padding-left: 0;
   padding-bottom: 0;
+  min-width: 300px;
 }
 
 
@@ -79,4 +80,12 @@
     flex-direction: row;
   }
 
+}
+
+@media (max-width: 700px) {
+  .infoGroup input,
+  .infoGroup input[disabled],
+  .infoGroup input:disabled {
+    min-width: 250px;
+  }
 }

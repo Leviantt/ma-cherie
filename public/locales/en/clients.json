@@ -1,0 +1,19 @@
+{
+	"clients": "Clients",
+	"export": "Export to Excel",
+	"birthdays": "Birthdays",
+	"filter": "Filter",
+	"search": "Client search",
+	"client": "Client",
+	"registration-date": "Registration date",
+	"last-order": "Last order",
+	"total": "Total orders price",
+	"source": "Source",
+	"manager": "Manager",
+	"name": "Name",
+	"full-name": "Full name",
+	"birthdate": "Birthdate",
+	"phone": "Phone",
+	"save": "Save",
+	"new-client-data": "New client data"
+}

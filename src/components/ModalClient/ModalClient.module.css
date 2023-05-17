@@ -1,0 +1,66 @@
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  background-color: #b3cbc0;
+  color: #fff;
+  padding: 1em 1.5em;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal h3 {
+  padding-left: 1.75em;
+}
+
+.modal button {
+  margin-left: auto;
+}
+
+.infoGroup {
+  display: flex;
+  flex-direction: column;
+  padding: .25em .5em 0 0;
+  margin-bottom: 1em;
+}
+
+.infoGroup label {
+  font-size: .75rem;
+  margin-bottom: .25em;
+  margin-left: .75em;
+}
+
+.infoGroup input {
+  font-size: 1.15rem;
+  border: 1px solid transparent;
+  border: 1px solid #a7bbb1; 
+  outline: none;
+  background-color: #e3ece7;
+  padding: .25em .5em;
+  border-radius: .5rem;
+}
+
+.infoGroup input {
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+}
+
+.infoGroup input:focus {
+  border: 1px solid var(--primary-color);
+}
+
+@media (max-width: 500px) {
+  .modal {
+    padding: .5em 1em;
+    padding: 0;
+  }
+  
+  .modal button {
+    margin-right: 1.5em;
+    margin-bottom: 1em;
+  }
+}

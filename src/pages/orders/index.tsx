@@ -1,63 +1,90 @@
-import type { NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 
-import styles from './employees.module.css';
-import { SearchBar } from '~/components/SearchBar';
+import styles from './Orders.module.css';
 import { Button } from '~/components/Button';
-import { Grid } from '~/components/Grid';
-import { EmployeeCard } from '../../components/EmployeeCard';
-import { filterButtonStyles } from '~/components/Button/Button';
 import { addButtonStyles } from '~/components/Button/Button';
-import { api } from '~/utils/api';
-import { useRouter } from 'next/router';
+import { OrdersTable } from '~/components/OrdersTable';
+import { FilterButton } from '~/components/FilterButton';
 import { useState } from 'react';
-import { makeCompareEmployees } from '~/utils/compare';
+import { useRouter } from 'next/router';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
 
-const Employees: NextPage = () => {
+const Orders: NextPage = () => {
 	const router = useRouter();
-	const { data: employees, isLoading, error } = api.employee.getAll.useQuery();
-
-	const [searchInput, setSearchInput] = useState<string>('');
-
-	if (isLoading) return <div>Loading...</div>;
-
-	if (error) {
-		console.log(error);
-		return <div>Something went wrong...</div>;
-	}
-
-	const sorted = employees.sort(makeCompareEmployees(searchInput));
-
+	const [filterByStatusFlags, setFilterByStatusFlags] = useState<boolean[]>([
+		false,
+		false,
+		false,
+		false,
+		false,
+	]);
+	const toggle = (index: number) => {
+		setFilterByStatusFlags((arr) => {
+			return arr.map((item, i) => (i === index ? !item : false));
+		});
+	};
+	const { t } = useTranslation('orders');
 	return (
 		<>
-			<h2>Сотрудники</h2>
-			<SearchBar
-				isDarkBackground={false}
-				placeholder='Поиск сотрудников'
-				searchInput={searchInput}
-				setSearchInput={setSearchInput}
-			/>
+			<h2>{t('orders')}</h2>
 			<div className={styles.buttons}>
-				<Button customStyles={filterButtonStyles}>Фильтр</Button>
 				<Button
 					customStyles={addButtonStyles}
 					onClick={() => {
-						void router.push('/employees/new-employee');
+						void router.push('/orders/new-order');
 					}}
 				>
-					+ Добавить сотрудника
+					+ {t('create-order')}
 				</Button>
 			</div>
-			<Grid cellMinWidth={250}>
-				{sorted.length === 0 ? (
-					<div>There is no employees yet</div>
-				) : (
-					sorted.map((employee) => (
-						<EmployeeCard key={employee.id} {...employee} />
-					))
-				)}
-			</Grid>
+			<div className={styles.filterButtons}>
+				<div>
+					<FilterButton
+						isActive={filterByStatusFlags[0]}
+						toggle={() => toggle(0)}
+					>
+						{t('new')}
+					</FilterButton>
+					<FilterButton
+						isActive={filterByStatusFlags[1]}
+						toggle={() => toggle(1)}
+					>
+						{t('at-work')}
+					</FilterButton>
+					<FilterButton
+						isActive={filterByStatusFlags[2]}
+						toggle={() => toggle(2)}
+					>
+						{t('at-delivery')}
+					</FilterButton>
+				</div>
+				<div>
+					<FilterButton
+						isActive={filterByStatusFlags[3]}
+						toggle={() => toggle(3)}
+					>
+						{t('completed')}
+					</FilterButton>
+					<FilterButton
+						isActive={filterByStatusFlags[4]}
+						toggle={() => toggle(4)}
+					>
+						{t('canceled')}
+					</FilterButton>
+				</div>
+			</div>
+			<OrdersTable filterByStatusFlags={filterByStatusFlags} />
 		</>
 	);
 };
 
-export default Employees;
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+	return {
+		props: {
+			...(await serverSideTranslations(locale ?? 'ru', ['common', 'orders'])),
+		},
+	};
+};
+
+export default Orders;

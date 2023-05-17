@@ -12,6 +12,18 @@ export const employeeRouter = createTRPCRouter({
 		.query(({ ctx, input }): Prisma.PrismaPromise<Employee | null> => {
 			return ctx.prisma.employee.findUnique({ where: { id: input.id } });
 		}),
+	getManagers: publicProcedure.query(
+		({ ctx }): Prisma.PrismaPromise<Employee[]> => {
+			return ctx.prisma.employee.findMany({
+				where: {
+					OR: [
+						{ position: { equals: 'manager', mode: 'insensitive' } },
+						{ position: { equals: 'менеджер', mode: 'insensitive' } },
+					],
+				},
+			});
+		}
+	),
 	create: publicProcedure
 		.input(
 			z.object({
@@ -62,22 +74,6 @@ export const employeeRouter = createTRPCRouter({
 					id,
 				},
 				data: { ...newData },
-			});
-		}),
-	addClient: publicProcedure
-		.input(z.object({ id: z.number().int(), clientId: z.number().int() }))
-		.mutation(({ ctx, input }) => {
-			return ctx.prisma.employee.update({
-				where: {
-					id: input.id,
-				},
-				data: {
-					clients: {
-						connect: {
-							id: input.clientId,
-						},
-					},
-				},
 			});
 		}),
 	addOrder: publicProcedure

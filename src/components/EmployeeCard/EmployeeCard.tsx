@@ -6,6 +6,7 @@ import styles from './EmployeeCard.module.css';
 import { Button } from '../Button';
 import { DotsIcon } from '../DotsIcon';
 import { employeeButtonStyles } from '../Button/Button';
+import { useTranslation } from 'next-i18next';
 
 export const EmployeeCard = ({
 	phone,
@@ -15,6 +16,7 @@ export const EmployeeCard = ({
 	id,
 	pathToAvatarPhoto,
 }: Employee) => {
+	const { t } = useTranslation('employees');
 	return (
 		<div className={styles.card}>
 			<div className={styles.heading}>
@@ -32,19 +34,19 @@ export const EmployeeCard = ({
 				<DotsIcon />
 			</div>
 			<div className={styles.infoGroup}>
-				<label htmlFor=''>Телефон</label>
+				<label htmlFor=''>{t('phone')}</label>
 				<p>{phone}</p>
 			</div>
 			<div className={styles.infoGroup}>
-				<label htmlFor=''>Почта</label>
+				<label htmlFor=''>{t('email')}</label>
 				<p>{email}</p>
 			</div>
 			<div className={styles.infoGroup}>
-				<label htmlFor=''>Рабочая почта</label>
+				<label htmlFor=''>{t('work-email')}</label>
 				<p>{workEmail}</p>
 			</div>
 			<Link href={`/employees/${id}`}>
-				<Button customStyles={employeeButtonStyles}>Подробнее</Button>
+				<Button customStyles={employeeButtonStyles}>{t('detailed')}</Button>
 			</Link>
 		</div>
 	);

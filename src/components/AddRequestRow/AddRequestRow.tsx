@@ -6,6 +6,7 @@ import { Button } from '../Button';
 import { basicButtonStyles } from '../Button/Button';
 import { isRequestNullable } from '~/utils/isRequestNullable';
 import { useCreateRequest } from '~/hooks/request/useCreateRequest';
+import { useTranslation } from 'next-i18next';
 
 type AddRequestRowProps = {
 	refetchRequests: () => void;
@@ -14,14 +15,14 @@ type AddRequestRowProps = {
 	refetchDesserts: () => void;
 };
 
-const DESSERT_NOT_SELECTED = '<не выбрано>';
-
 export const AddRequestRow = ({
 	refetchRequests,
 	address,
 	desserts,
 	refetchDesserts,
 }: AddRequestRowProps) => {
+	const { t } = useTranslation('requests');
+	const DESSERT_NOT_SELECTED = t('not-selected');
 	const [dessertName, setDessertName] = useState(DESSERT_NOT_SELECTED);
 	const [mondayCount, setMondayCount] = useState(0);
 	const [tuesdayCount, setTuesdayCount] = useState(0);
@@ -42,12 +43,15 @@ export const AddRequestRow = ({
 		setSundayCount(0);
 	};
 
-	const addRequest = useCreateRequest(resetInputs, refetchRequests, refetchDesserts);
+	const addRequest = useCreateRequest(
+		resetInputs,
+		refetchRequests,
+		refetchDesserts
+	);
 
 	const handleAddRequest = () => {
-		console.log('add');
 		if (dessertName === DESSERT_NOT_SELECTED) {
-			toast.error('Выберите новый десерт для добавления заявок.');
+			toast.error(t('choose-dessert'));
 			return;
 		}
 		const counts = {
@@ -60,7 +64,7 @@ export const AddRequestRow = ({
 			sundayCount,
 		};
 		if (isRequestNullable(counts)) {
-			toast.error('Хотя бы один из столбцов должен быть ненулевым.');
+			toast.error(t('must-be-non-zero'));
 			return;
 		}
 		addRequest.mutate({
@@ -87,7 +91,7 @@ export const AddRequestRow = ({
 						))}
 					</select>
 				</div>
-				<div className={styles.col2} data-label='ПН'>
+				<div className={styles.col2} data-label={`${t('mon')}`}>
 					<input
 						className={styles.input}
 						type='number'
@@ -96,7 +100,7 @@ export const AddRequestRow = ({
 						onChange={(e) => setMondayCount(+e.target.value)}
 					/>
 				</div>
-				<div className={styles.col2} data-label='ВТ'>
+				<div className={styles.col2} data-label={`${t('tue')}`}>
 					<input
 						className={styles.input}
 						type='number'
@@ -105,7 +109,7 @@ export const AddRequestRow = ({
 						onChange={(e) => setTuesdayCount(+e.target.value)}
 					/>
 				</div>
-				<div className={styles.col2} data-label='СР'>
+				<div className={styles.col2} data-label={`${t('wed')}`}>
 					<input
 						className={styles.input}
 						type='number'
@@ -114,7 +118,7 @@ export const AddRequestRow = ({
 						onChange={(e) => setWednesdayCount(+e.target.value)}
 					/>
 				</div>
-				<div className={styles.col2} data-label='ЧТ'>
+				<div className={styles.col2} data-label={`${t('thu')}`}>
 					<input
 						className={styles.input}
 						type='number'
@@ -123,7 +127,7 @@ export const AddRequestRow = ({
 						onChange={(e) => setThursdayCount(+e.target.value)}
 					/>
 				</div>
-				<div className={styles.col2} data-label='ПТ'>
+				<div className={styles.col2} data-label={`${t('fri')}`}>
 					<input
 						className={styles.input}
 						type='number'
@@ -132,7 +136,7 @@ export const AddRequestRow = ({
 						onChange={(e) => setFridayCount(+e.target.value)}
 					/>
 				</div>
-				<div className={styles.col2} data-label='СБ'>
+				<div className={styles.col2} data-label={`${t('sat')}`}>
 					<input
 						className={styles.input}
 						type='number'
@@ -141,7 +145,7 @@ export const AddRequestRow = ({
 						onChange={(e) => setSaturdayCount(+e.target.value)}
 					/>
 				</div>
-				<div className={styles.col2} data-label='ВС'>
+				<div className={styles.col2} data-label={`${t('sun')}`}>
 					<input
 						className={styles.input}
 						type='number'
@@ -152,7 +156,7 @@ export const AddRequestRow = ({
 				</div>
 			</div>
 			<Button customStyles={basicButtonStyles} onClick={handleAddRequest}>
-				Добавить
+				{t('add')}
 			</Button>
 		</>
 	);
