@@ -6,10 +6,10 @@
 
 
 .dessertContainer {
-  display: flex;
-  flex-direction: column;
+  /* display: flex; */
+  /* flex-direction: column;
   justify-content: space-evenly;
-  align-items: center;
+  align-items: center; */
   background-color: #e3ece7;
   border-radius: 1rem;
   padding: 2em;
@@ -63,6 +63,9 @@
   height: 100px;
   position: absolute;
   width: 15px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 .plus:after {
   background: black;
