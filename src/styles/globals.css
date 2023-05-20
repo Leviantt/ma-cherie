@@ -42,10 +42,6 @@ h2 {
   max-width: 1400px;
 }
 
-* {
-  /* outline: 1px magenta solid; */
-}
-
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
