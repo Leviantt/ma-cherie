@@ -1,10 +1,11 @@
-import { convertDatetimeToString } from '~/utils/date';
+import Link from 'next/link';
+import { useTranslation } from 'next-i18next';
+
 import styles from './OrderRow.module.css';
+import { convertDatetimeToString } from '~/utils/date';
 import type { OrderWithDesserts } from '~/types/OrderWithDesserts';
 import { getTotalPrice } from '~/utils/getTotalPrice';
 import { SetStatus } from '../SetStatus';
-import Link from 'next/link';
-import { useTranslation } from 'next-i18next';
 
 export const OrderRow = ({
 	id,

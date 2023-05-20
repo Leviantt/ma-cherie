@@ -1,4 +1,4 @@
-import styles from './AddressLable.module.css';
+import styles from './AddressLabel.module.css';
 
 type AddressLabelProps = {
 	title: string;

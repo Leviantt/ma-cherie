@@ -1,12 +1,14 @@
 import type { GetServerSideProps } from 'next';
-import styles from './NewOrder.module.css';
-import { Grid } from '~/components/Grid';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
+import { type ChangeEvent, useState } from 'react';
+import { toast } from 'react-hot-toast';
+
+import styles from './NewOrder.module.css';
+import { Grid } from '~/components/Grid';
 import { api } from '~/utils/api';
 import { PlusIcon } from '~/components/PlusIcon';
 import { CartDessert } from '~/components/CartDessert';
-import { type ChangeEvent, useState } from 'react';
 import { filterAddedDesserts } from '~/utils/filterAddedDesserts';
 import type { Map } from '~/types/Map';
 import { SearchBar } from '~/components/SearchBar';
@@ -16,7 +18,6 @@ import { getDeliveryMethodByValue } from '~/utils/getDeliveryMethodByValue';
 import type { ClientData } from '~/types/ClientData';
 import { ModalClient } from '~/components/ModalClient';
 import { validateClient } from '~/utils/validateClient';
-import { toast } from 'react-hot-toast';
 import { Button } from '~/components/Button';
 import { useCreateOrder } from '~/hooks/order/useCreateOrder';
 import { calculateTotal } from '~/utils/calculateTotal';

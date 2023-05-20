@@ -3,11 +3,6 @@
   flex-direction: column;
 }
 
-/* .requestsTableContainer button {
-  margin-bottom: 1em;
-  margin-left: auto;
-} */
-
 .buttons {
   margin-top: 1em;
 }
@@ -26,13 +21,6 @@
   font-size: .85rem;
   table-layout: fixed;
 }
-
-
-/* .requestsTable tr {
-  background-color: #f8f8f8;
-  border: 1px solid #ddd;
-  padding: .35em;
-} */
 
 .requestsTable th,
 .requestsTable td {
@@ -96,12 +84,6 @@
     width: 1px;
   }
   
-  /* .requestsTable tr {
-    border-bottom: 3px solid #ddd;
-    display: block;
-    margin-bottom: .625em;
-  } */
-  
   .requestsTable td {
     border-bottom: 1px solid #ddd;
     display: block;
@@ -123,6 +105,4 @@
   .requestsTable td:last-child {
     border-bottom: 0;
   }
-
-  /* .col1, .col2 { width: 100%; } */
 }

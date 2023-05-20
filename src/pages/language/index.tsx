@@ -1,10 +1,10 @@
-import styles from './Language.module.css';
-
 import type { GetServerSideProps, NextPage } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+
+import styles from './Language.module.css';
 
 const Language: NextPage = () => {
 	const { t } = useTranslation('common');

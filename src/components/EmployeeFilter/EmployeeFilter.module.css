@@ -5,6 +5,7 @@
   transition: grid-template-rows 500ms;
   font-size: 1.15rem;
 }
+
 .expanderContent {
   min-height: 0;
   transition: visibility 1s;
@@ -13,9 +14,11 @@
   background-color: #f0f5f2;
   visibility: hidden;
 }
+
 .expander.expanded {
   grid-template-rows: 1fr;
 }
+
 .expander.expanded .expanderContent {
   visibility: visible;
 }
@@ -59,9 +62,7 @@
 }
 
 .dateContainer {
-  /* padding: .75em .5em; */
   width: max-content;
-  /* border: 1px solid hsl(147, 19%, 75%); */
   background-color: hsl(147, 19%, 82%);
   border-radius: 6px;
   justify-content: flex-start;

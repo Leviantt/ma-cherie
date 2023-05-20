@@ -1,6 +1,7 @@
+import { useTranslation } from 'next-i18next';
+
 import styles from './ClientsTable.module.css';
 import { ClientRow } from '../ClientRow';
-import { useTranslation } from 'next-i18next';
 import type { ClientExtended } from '~/types/ClientExtended';
 import { compareClosestToCurrentDay } from '~/utils/compare';
 

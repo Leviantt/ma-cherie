@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import type { GetServerSideProps, NextPage } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
 
 import { api } from '~/utils/api';
 import { SearchBar } from '~/components/SearchBar';
 import { Grid } from '~/components/Grid';
 import { DessertCard } from '~/components/DessertCard';
 import { AddDessertCard } from '~/components/AddDessertCard';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useTranslation } from 'next-i18next';
 import { makeCompareDesserts } from '~/utils/compare';
 
 const Desserts: NextPage = () => {

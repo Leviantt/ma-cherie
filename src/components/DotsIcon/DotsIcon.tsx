@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import styles from './DotsIcon.module.css';
 import { useTranslation } from 'next-i18next';
+
+import styles from './DotsIcon.module.css';
 
 type DotsIconProps = {
 	update: () => void;
@@ -15,21 +16,21 @@ export const DotsIcon = ({ update, remove }: DotsIconProps) => {
 		? [styles.dropdownContainer, styles.open].join(' ')
 		: styles.dropdownContainer;
 
-		useEffect(() => {
-			const handler = (event: MouseEvent) => {
-				if (!dotsRef.current) {
-					return;
-				}
-				if (!dotsRef.current.contains(event.target as Node)) {
-					setIsOpen(false);
-				}
-			};
-			// `true` will enable the `capture` phase of event handling by browser
-			document.addEventListener('click', handler, true);
-			return () => {
-				document.removeEventListener('click', handler);
-			};
-		}, []);
+	useEffect(() => {
+		const handler = (event: MouseEvent) => {
+			if (!dotsRef.current) {
+				return;
+			}
+			if (!dotsRef.current.contains(event.target as Node)) {
+				setIsOpen(false);
+			}
+		};
+		// `true` will enable the `capture` phase of event handling by browser
+		document.addEventListener('click', handler, true);
+		return () => {
+			document.removeEventListener('click', handler);
+		};
+	}, []);
 
 	return (
 		<div

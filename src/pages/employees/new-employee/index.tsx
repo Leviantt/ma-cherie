@@ -1,6 +1,7 @@
 import type { GetServerSideProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
+
 import { Employee } from '~/components/Employee';
 
 function NewEmployee() {
@@ -10,7 +11,10 @@ function NewEmployee() {
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
 	return {
 		props: {
-			...(await serverSideTranslations(locale ?? 'ru', ['common', 'employees'])),
+			...(await serverSideTranslations(locale ?? 'ru', [
+				'common',
+				'employees',
+			])),
 		},
 	};
 };

@@ -2,12 +2,12 @@ import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { Prisma } from '@prisma/client';
 import { z } from 'zod';
+import { useTranslation } from 'next-i18next';
 
 import styles from './AddDessertCard.module.css';
 import { CloseIcon } from '../CloseIcon';
 import { CheckIcon } from '../CheckIcon';
 import { useCreateDessert } from '~/hooks/dessert/useCreateDessert';
-import { useTranslation } from 'next-i18next';
 
 type AddDessertCardProps = {
 	refetch: () => void;

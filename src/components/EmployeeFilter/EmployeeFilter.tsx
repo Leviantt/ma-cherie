@@ -1,8 +1,9 @@
-import type { EmployeeFilterParams } from '~/types/EmployeeFilterParams';
-import styles from './EmployeeFilter.module.css';
 import { useRef, type ChangeEvent } from 'react';
-import { convertDateForValue } from '~/utils/date';
 import { useTranslation } from 'next-i18next';
+
+import styles from './EmployeeFilter.module.css';
+import type { EmployeeFilterParams } from '~/types/EmployeeFilterParams';
+import { convertDateForValue } from '~/utils/date';
 import { Grid } from '../Grid';
 
 type EmployeeFilterProps = {

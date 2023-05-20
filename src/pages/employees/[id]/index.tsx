@@ -1,9 +1,10 @@
 import { useRouter } from 'next/router';
-import { api } from '~/utils/api';
-import { Employee } from '~/components/Employee';
 import type { GetServerSideProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
+
+import { api } from '~/utils/api';
+import { Employee } from '~/components/Employee';
 
 function DetailedEmployee() {
 	const router = useRouter();
@@ -27,7 +28,10 @@ function DetailedEmployee() {
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
 	return {
 		props: {
-			...(await serverSideTranslations(locale ?? 'ru', ['common', 'employees'])),
+			...(await serverSideTranslations(locale ?? 'ru', [
+				'common',
+				'employees',
+			])),
 		},
 	};
 };

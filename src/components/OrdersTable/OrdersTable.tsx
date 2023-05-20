@@ -1,10 +1,11 @@
+import { useTranslation } from 'next-i18next';
+
 import styles from './OrdersTable.module.css';
-import { OrderRow } from '../OrderRow';
 import { api } from '~/utils/api';
+import { OrderRow } from '../OrderRow';
 import type { Status } from '@prisma/client';
 import { filterByStatus } from '~/utils/filterByStatus';
 import { compareByDate } from '~/utils/compareByDate';
-import { useTranslation } from 'next-i18next';
 
 export type MOCK_ORDER = {
 	id: number;

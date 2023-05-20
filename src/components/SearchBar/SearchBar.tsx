@@ -1,4 +1,5 @@
 import styles from './SearchBar.module.css';
+
 type SearchBarProps = {
 	placeholder: string;
 	isDarkBackground?: boolean;

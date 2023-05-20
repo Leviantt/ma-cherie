@@ -1,11 +1,11 @@
-import styles from './RequestRow.module.css';
 import { useState } from 'react';
 import type { Request } from '@prisma/client';
+import { useTranslation } from 'next-i18next';
 
+import styles from './RequestRow.module.css';
 import { isRequestNullable } from '~/utils/isRequestNullable';
 import { useUpdateRequest } from '~/hooks/request/useUpdateRequest';
 import { useDeleteRequest } from '~/hooks/request/useDeleteRequest';
-import { useTranslation } from 'next-i18next';
 
 type RequestRowProps = Request & {
 	dessert: { name: string };
@@ -33,7 +33,7 @@ export const RequestRow = (props: RequestRowProps) => {
 		props.refetchRequests,
 		props.refetchDesserts
 	);
-		const { t } = useTranslation('requests');
+	const { t } = useTranslation('requests');
 	const handleUpdate = () => {
 		clearTimeout(updateTimer);
 		const timer = setTimeout(() => {

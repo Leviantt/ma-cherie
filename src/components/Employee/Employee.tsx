@@ -3,6 +3,7 @@ import { toast } from 'react-hot-toast';
 import type { Employee as EmployeeType } from '@prisma/client';
 import { z } from 'zod';
 import { v4 } from 'uuid';
+import { useTranslation } from 'next-i18next';
 
 import styles from './Employee.module.css';
 import { EditIcon } from '~/components/EditIcon';
@@ -15,7 +16,6 @@ import { useCreateEmployee } from '~/hooks/employee/useCreateEmployee';
 import { useUpdateEmployee } from '~/hooks/employee/useUpdateEmployee';
 import { useDeleteEmployee } from '~/hooks/employee/useDeleteEmployee';
 import type { NewEmployeeData } from '~/types/NewEmployeeData';
-import { useTranslation } from 'next-i18next';
 
 export const Employee = (employee: Partial<EmployeeType>) => {
 	const [isEditable, setIsEditable] = useState<boolean>(

@@ -1,11 +1,11 @@
 import type { GetServerSideProps, NextPage } from 'next';
+import { useState } from 'react';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
 
 import styles from './requests.module.css';
 import { RequestsTable } from '~/components/RequestsTable';
 import { AddressLabel } from '~/components/AddressLabel';
-import { useState } from 'react';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useTranslation } from 'next-i18next';
 
 const Requests: NextPage = () => {
 	const { t } = useTranslation('requests');

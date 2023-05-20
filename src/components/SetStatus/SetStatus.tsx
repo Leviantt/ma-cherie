@@ -1,7 +1,8 @@
-import styles from './SetStatus.module.css';
-import { Status } from '@prisma/client';
 import { useTranslation } from 'next-i18next';
 import { useState, type ReactElement, useRef, useEffect } from 'react';
+
+import styles from './SetStatus.module.css';
+import { Status } from '@prisma/client';
 import { useCancelOrder } from '~/hooks/order/useCancelOrder';
 import { useChangeStatusToAtWorkOrder } from '~/hooks/order/useChangeStatusToAtWorkOrder';
 import { useCompleteOrder } from '~/hooks/order/useCompleteOrder';

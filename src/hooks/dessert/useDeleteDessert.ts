@@ -1,7 +1,8 @@
-import type { TRPCClientErrorBase } from '@trpc/client';
-import type { DefaultErrorShape } from '@trpc/server';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'next-i18next';
+
+import type { TRPCClientErrorBase } from '@trpc/client';
+import type { DefaultErrorShape } from '@trpc/server';
 import { api } from '~/utils/api';
 
 export const useDeleteDessert = (refetch: () => void) => {

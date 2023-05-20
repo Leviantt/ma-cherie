@@ -1,6 +1,7 @@
-import type { StatData } from '~/types/StatData';
-import styles from './StatItem.module.css';
 import { useTranslation } from 'next-i18next';
+
+import styles from './StatItem.module.css';
+import type { StatData } from '~/types/StatData';
 
 export const StatItem = ({ number, title }: StatData) => {
 	const { t } = useTranslation('index');

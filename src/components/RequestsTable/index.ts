@@ -1,1 +1,1 @@
-export { RequestsTable } from './RequestsTable'
+export { RequestsTable } from './RequestsTable';

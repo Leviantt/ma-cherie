@@ -1,6 +1,7 @@
 import { useTranslation } from 'next-i18next';
-import styles from './ModalConfirm.module.css';
 import Modal from 'react-modal';
+
+import styles from './ModalConfirm.module.css';
 
 Modal.setAppElement('#modal-root');
 

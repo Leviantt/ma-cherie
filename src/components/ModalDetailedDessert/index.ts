@@ -1,1 +1,0 @@
-export { ModalDetailedDessert } from './ModalDetailedDessert';

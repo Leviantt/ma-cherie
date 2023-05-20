@@ -1,12 +1,12 @@
 import type { NextPage, GetServerSideProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
+import { useState } from 'react';
 
 import styles from './index.module.css';
 import { Grid } from '~/components/Grid';
 import { StatItem } from '~/components/StatItem';
 import { DateButton } from '~/components/DateButton';
-import { useTranslation } from 'next-i18next';
-import { useState } from 'react';
 import { api } from '~/utils/api';
 
 const Home: NextPage = () => {

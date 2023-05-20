@@ -1,15 +1,15 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import type { Employee } from '@prisma/client';
+import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 import styles from './EmployeeCard.module.css';
+import type { Employee } from '@prisma/client';
 import { Button } from '../Button';
 import { DotsIcon } from '../DotsIcon';
 import { employeeButtonStyles } from '../Button/Button';
-import { useTranslation } from 'next-i18next';
-import { useRouter } from 'next/router';
 import { ModalConfirm } from '../ModalConfirm';
-import { useState } from 'react';
 import { useDeleteEmployee } from '~/hooks/employee/useDeleteEmployee';
 
 export const EmployeeCard = ({

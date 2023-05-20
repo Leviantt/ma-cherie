@@ -1,9 +1,10 @@
-import type { Employee } from '@prisma/client';
-import type { TRPCClientErrorBase } from '@trpc/client';
-import type { DefaultErrorShape } from '@trpc/server';
 import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'next-i18next';
+
+import type { Employee } from '@prisma/client';
+import type { TRPCClientErrorBase } from '@trpc/client';
+import type { DefaultErrorShape } from '@trpc/server';
 import { api } from '~/utils/api';
 
 export const useUpdateEmployee = () => {

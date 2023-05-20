@@ -100,5 +100,4 @@
 .container > input {
   margin: .5em auto 1.5em;
   width: 92%;
-  /* border-top: 1px solid var(--primary-color); */
 }

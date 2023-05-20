@@ -1,6 +1,7 @@
-import styles from './NavLink.module.css';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+
+import styles from './NavLink.module.css';
 
 function defineCurrentLink(pathname: string, link: string): boolean {
 	if (link === '/') {

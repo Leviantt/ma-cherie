@@ -1,7 +1,8 @@
 import { useEffect, type ReactNode } from 'react';
-import { Navbar } from '../Navbar';
-import styles from './Layout.module.css';
 import { useRouter } from 'next/router';
+
+import styles from './Layout.module.css';
+import { Navbar } from '../Navbar';
 
 type LayoutProps = {
 	readonly children: ReactNode;
@@ -16,7 +17,7 @@ export const Layout = ({ children }: LayoutProps) => {
 			const path = router.asPath;
 			void router.push(path, path, { locale: locale });
 		}
-	// eslint-disable-next-line react-hooks/exhaustive-deps
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	return (
 		<div className='container'>

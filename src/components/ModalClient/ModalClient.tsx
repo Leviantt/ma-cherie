@@ -1,9 +1,10 @@
 import { useTranslation } from 'next-i18next';
-import styles from './ModalClient.module.css';
 import Modal from 'react-modal';
+import type { ChangeEvent } from 'react';
+
+import styles from './ModalClient.module.css';
 import { Grid } from '../Grid';
 import { convertDateForValue } from '~/utils/date';
-import type { ChangeEvent } from 'react';
 import { Button } from '../Button';
 import { darkButtonStyles } from '../Button/Button';
 import type { ClientData } from '~/types/ClientData';

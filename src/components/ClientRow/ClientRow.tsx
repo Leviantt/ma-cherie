@@ -1,10 +1,11 @@
-import styles from './ClientRow.module.css';
+import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
+
+import styles from './ClientRow.module.css';
 import { calculateTotalClientExpenses } from '~/utils/calculateTotal';
 import type { ClientExtended } from '~/types/ClientExtended';
 import { getFirstManager } from '~/utils/getFirstManager';
 import { getLastOrder } from '~/utils/getLastOrder';
-import Link from 'next/link';
 
 export const ClientRow = ({
 	fullName,

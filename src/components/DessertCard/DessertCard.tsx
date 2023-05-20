@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { Prisma, type Dessert } from '@prisma/client';
 import { z } from 'zod';
+import { useTranslation } from 'next-i18next';
 
 import styles from './DessertCard.module.css';
 import { EditIcon } from '~/components/EditIcon';
@@ -9,8 +10,6 @@ import { DeleteIcon } from '../DeleteIcon/DeleteIcon';
 import { ModalConfirm } from '../ModalConfirm';
 import { useUpdateDessert } from '~/hooks/dessert/useUpdateDessert';
 import { useDeleteDessert } from '~/hooks/dessert/useDeleteDessert';
-import { ModalDetailedDessert } from '../ModalDetailedDessert';
-import { useTranslation } from 'next-i18next';
 
 type DessertCardProps = {
 	dessert: Dessert;
@@ -21,8 +20,6 @@ export const DessertCard = ({ dessert, refetch }: DessertCardProps) => {
 	const { t } = useTranslation('desserts');
 	const [isEditable, setIsEditable] = useState<boolean>(false);
 	const [isModalConfirmOpen, setIsModalConfirmOpen] = useState<boolean>(false);
-	const [isModalDetailedDessertOpen, setIsModalDetailedDessertOpen] =
-		useState<boolean>(false);
 
 	const [name, setName] = useState(dessert.name);
 	const [price, setPrice] = useState(dessert.price);
@@ -69,15 +66,7 @@ export const DessertCard = ({ dessert, refetch }: DessertCardProps) => {
 				title={t('delete-dessert')}
 				action={() => deleteDessert.mutate({ id: dessert.id })}
 			/>
-			<ModalDetailedDessert
-				isOpen={isModalDetailedDessertOpen}
-				closeModal={() => setIsModalDetailedDessertOpen(false)}
-				{...dessert}
-			/>
-			<div
-				className={styles.dessertContainer}
-				// onClick={() => setIsModalDetailedDessertOpen(true)}
-			>
+			<div className={styles.dessertContainer}>
 				<EditIcon isActive={isEditable} onClick={save} />
 				<DeleteIcon
 					isActive={isEditable}

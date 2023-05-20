@@ -1,1 +1,1 @@
-export { ClientRow } from './ClientRow'
+export { ClientRow } from './ClientRow';

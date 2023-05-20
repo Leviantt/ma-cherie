@@ -1,6 +1,6 @@
-import { PlusCrossIcon } from '../PlusCrossIcon';
 import styles from './CartDessert.module.css';
 import type { Dessert } from '@prisma/client';
+import { PlusCrossIcon } from '../PlusCrossIcon';
 
 type CartDessertProps = Dessert & {
 	number?: number;

@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+
 import styles from './Button.module.css';
 import type { CustomButtonStyles } from '~/types/CustomButtonStyles';
 

@@ -1,12 +1,12 @@
 import { type AppType } from 'next/app';
 import { Inter } from 'next/font/google';
-import { Layout } from '~/components/Layout';
 import Head from 'next/head';
 import { Toaster } from 'react-hot-toast';
+import { appWithTranslation } from 'next-i18next';
 
+import { Layout } from '~/components/Layout';
 import { api } from '~/utils/api';
 import '~/styles/globals.css';
-import { appWithTranslation } from 'next-i18next';
 
 const inter = Inter({
 	subsets: ['cyrillic', 'latin'],

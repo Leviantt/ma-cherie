@@ -1,16 +1,16 @@
 import type { GetServerSideProps, NextPage } from 'next';
+import { useState } from 'react';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
+import { CSVLink } from 'react-csv';
 
 import styles from './clients.module.css';
 import { SearchBar } from '~/components/SearchBar';
 import { Button } from '~/components/Button';
 import { ClientsTable } from '~/components/ClientsTable';
 import { basicButtonStyles } from '~/components/Button/Button';
-import { useState } from 'react';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useTranslation } from 'next-i18next';
 import { api } from '~/utils/api';
 import { makeCompareClients } from '~/utils/compare';
-import { CSVLink } from 'react-csv';
 
 const Clients: NextPage = () => {
 	const { data: clients, isLoading, error } = api.client.getAll.useQuery();

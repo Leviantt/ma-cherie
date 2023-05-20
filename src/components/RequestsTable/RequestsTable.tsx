@@ -1,12 +1,13 @@
+import { CSVLink } from 'react-csv';
+import { useTranslation } from 'next-i18next';
+
+import styles from './RequestsTable.module.css';
 import { api } from '~/utils/api';
 import { RequestRow } from '../RequestRow';
-import styles from './RequestsTable.module.css';
 import { AddRequestRow } from '../AddRequestRow';
 import { filterNewDesserts } from '~/utils/filterNewDesserts';
-import { useTranslation } from 'next-i18next';
 import { Button } from '../Button';
 import { basicButtonStyles } from '../Button/Button';
-import { CSVLink } from 'react-csv';
 
 type RequestsTableProps = {
 	address: string;

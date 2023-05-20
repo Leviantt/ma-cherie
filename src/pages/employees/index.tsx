@@ -1,4 +1,7 @@
 import type { GetServerSideProps, NextPage } from 'next';
+import { useRouter } from 'next/router';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
 
 import styles from './employees.module.css';
 import { SearchBar } from '~/components/SearchBar';
@@ -8,11 +11,8 @@ import { EmployeeCard } from '../../components/EmployeeCard';
 import { filterButtonStyles } from '~/components/Button/Button';
 import { addButtonStyles } from '~/components/Button/Button';
 import { api } from '~/utils/api';
-import { useRouter } from 'next/router';
 import { type ChangeEvent, useState } from 'react';
 import { makeCompareEmployees } from '~/utils/compare';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useTranslation } from 'next-i18next';
 import { EmployeeFilter } from '~/components/EmployeeFilter';
 import type { EmployeeFilterParams } from '~/types/EmployeeFilterParams';
 import { filterEmployees } from '~/utils/filterEmployees';
