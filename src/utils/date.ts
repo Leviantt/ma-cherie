@@ -7,7 +7,7 @@ export function convertDatetimeToString(datetime: Date) {
 }
 
 export function convertDateForValue(date?: Date): string {
-	if (!date) return (new Date()).toISOString().substring(0, 10);
-	console.log(date);
+	if (!date) return new Date().toISOString().substring(0, 10);
+
 	return date.toISOString().substring(0, 10);
 }

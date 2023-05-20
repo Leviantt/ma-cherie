@@ -13,7 +13,6 @@ export const Layout = ({ children }: LayoutProps) => {
 	useEffect(() => {
 		const locale = localStorage.getItem('locale');
 		if (locale) {
-			console.log('Layout render');
 			const path = router.asPath;
 			void router.push(path, path, { locale: locale });
 		}

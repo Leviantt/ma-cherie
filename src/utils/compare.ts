@@ -24,13 +24,6 @@ export function compareClosestToCurrentDay(a: Client, b: Client) {
 	const aDays = getPastDaysInYear(a.birthdate);
 	const bDays = getPastDaysInYear(b.birthdate);
 
-	console.log('now');
-	console.log(now);
-	console.log('aTimeWithoutYear');
-	console.log(aDays);
-	console.log('bTimeWithoutYear');
-	console.log(bDays);
-
 	if (aDays <= now && bDays <= now) {
 		return aDays - bDays;
 	} else if (aDays <= now) {
