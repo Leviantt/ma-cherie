@@ -16,6 +16,9 @@ export const validateOrder = (
 	clientData: ClientData,
 	addedDesserts: Map
 ) => {
+	if (Object.entries(addedDesserts).length === 0)
+		throw new Error('Order must have at least 1 dessert');
+		
 	const desserts = [];
 	for (const [key, value] of Object.entries(addedDesserts)) {
 		desserts.push({ dessertId: +key, dessertsNumber: value });

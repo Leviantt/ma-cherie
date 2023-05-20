@@ -4,6 +4,7 @@ import { type Prisma, Status } from '@prisma/client';
 import type { OrderWithDesserts } from '~/types/OrderWithDesserts';
 import type { OrderExtended } from '~/types/OrderExtended';
 import { DeliveryMethodEnum } from '~/utils/validateOrder';
+import type { StatData } from '~/types/StatData';
 
 export const orderRouter = createTRPCRouter({
 	getAllWithDesserts: publicProcedure.query(
@@ -118,7 +119,16 @@ export const orderRouter = createTRPCRouter({
 					},
 				},
 			});
-			return ctx.prisma.order.delete({
+
+			await ctx.prisma.client.deleteMany({
+				where: {
+					orders: {
+						none: {},
+					},
+				},
+			});
+
+			return await ctx.prisma.order.delete({
 				where: {
 					id: input.id,
 				},
@@ -235,5 +245,139 @@ export const orderRouter = createTRPCRouter({
 					status: Status.CANCELED,
 				},
 			});
+		}),
+	getStatistics: publicProcedure
+		.input(z.object({ startDate: z.date(), endDate: z.date() }))
+		.query(async ({ ctx, input }): Promise<StatData[]> => {
+			const orders = await ctx.prisma.order.findMany({
+				where: {
+					AND: [
+						{
+							createdAt: {
+								gte: input.startDate,
+							},
+						},
+						{
+							createdAt: {
+								lte: input.endDate,
+							},
+						},
+					],
+				},
+				include: {
+					desserts: {
+						include: {
+							dessert: true,
+						},
+					},
+				},
+			});
+			const completedOrdersNumber = await ctx.prisma.order.count({
+				where: {
+					AND: [
+						{
+							createdAt: {
+								gte: input.startDate,
+							},
+						},
+						{
+							createdAt: {
+								lte: input.endDate,
+							},
+						},
+						{
+							status: Status.COMPLETED,
+						},
+					],
+				},
+			});
+			const canceledOrdersNumber = await ctx.prisma.order.count({
+				where: {
+					AND: [
+						{
+							createdAt: {
+								gte: input.startDate,
+							},
+						},
+						{
+							createdAt: {
+								lte: input.endDate,
+							},
+						},
+						{
+							status: Status.CANCELED,
+						},
+					],
+				},
+			});
+			const clientsNumber = await ctx.prisma.client.count({
+				where: {
+					AND: [
+						{
+							registrationDate: {
+								gte: input.startDate,
+							},
+						},
+						{
+							registrationDate: {
+								lte: input.endDate,
+							},
+						},
+					],
+				},
+			});
+			const employeesNumber = await ctx.prisma.employee.count({
+				where: {
+					AND: [
+						{
+							hireDate: {
+								gte: input.startDate,
+							},
+						},
+						{
+							hireDate: {
+								lte: input.endDate,
+							},
+						},
+					],
+				},
+			});
+			const income = orders.reduce(
+				(sum, order) =>
+					sum +
+					order.desserts.reduce(
+						(s, d) => s + d.dessertsNumber * +d.dessert.price,
+						0
+					) +
+					+order.deliveryPrice,
+				0
+			);
+
+			return [
+				{
+					number: orders.length,
+					title: 'orders',
+				},
+				{
+					number: completedOrdersNumber,
+					title: 'completed-orders',
+				},
+				{
+					number: canceledOrdersNumber,
+					title: 'canceled-orders',
+				},
+				{
+					number: clientsNumber,
+					title: 'clients',
+				},
+				{
+					number: employeesNumber,
+					title: 'employees',
+				},
+				{
+					number: income,
+					title: 'income',
+				},
+			];
 		}),
 });

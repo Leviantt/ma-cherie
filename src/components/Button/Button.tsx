@@ -4,6 +4,7 @@ import type { CustomButtonStyles } from '~/types/CustomButtonStyles';
 
 type ButtonProps = {
 	customStyles?: CustomButtonStyles;
+	clicked?: boolean;
 	onClick?: () => void | Promise<void>;
 	readonly children?: ReactNode;
 };
@@ -35,9 +36,16 @@ export const employeeButtonStyles: CustomButtonStyles = {
 };
 
 export const Button = (props: ButtonProps) => {
-	const { customStyles, children, onClick } = props;
+	const { customStyles, children, onClick, clicked } = props;
+
 	return (
-		<button style={customStyles} className={styles.button} onClick={onClick}>
+		<button
+			style={customStyles ?? basicButtonStyles}
+			className={
+				clicked ? [styles.button, styles.clicked].join(' ') : styles.button
+			}
+			onClick={onClick}
+		>
 			{children}
 		</button>
 	);

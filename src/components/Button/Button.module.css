@@ -11,8 +11,14 @@
   display: inline-block;
   cursor: pointer;
   outline: none;
+  position: relative;
 }
 
 .button:hover {
   translate: 0 -2px;
+}
+
+.button.clicked {
+  color: #fff;
+  background-color: var(--primary-color) !important;
 }

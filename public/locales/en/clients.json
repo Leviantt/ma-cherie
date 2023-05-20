@@ -1,7 +1,10 @@
 {
+	"error": "Something went wrong",
+	"loading": "Loading...",
 	"clients": "Clients",
 	"export": "Export to Excel",
 	"birthdays": "Birthdays",
+	"birthday": "Birthday",
 	"filter": "Filter",
 	"search": "Client search",
 	"client": "Client",

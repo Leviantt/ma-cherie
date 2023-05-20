@@ -9,17 +9,31 @@ import { filterButtonStyles } from '~/components/Button/Button';
 import { addButtonStyles } from '~/components/Button/Button';
 import { api } from '~/utils/api';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { type ChangeEvent, useState } from 'react';
 import { makeCompareEmployees } from '~/utils/compare';
-import { ModalConfirm } from '~/components/ModalConfirm';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
+import { EmployeeFilter } from '~/components/EmployeeFilter';
+import type { EmployeeFilterParams } from '~/types/EmployeeFilterParams';
+import { filterEmployees } from '~/utils/filterEmployees';
 
 const Employees: NextPage = () => {
 	const router = useRouter();
-	const { data: employees, isLoading, error } = api.employee.getAll.useQuery();
+	const {
+		data: employees,
+		isLoading,
+		error,
+		refetch,
+	} = api.employee.getAll.useQuery();
 	const { t } = useTranslation('employees');
 	const [searchInput, setSearchInput] = useState<string>('');
+	const [showFilter, setShowFilter] = useState<boolean>(false);
+	const [filterParams, setFilterParams] = useState<EmployeeFilterParams>({
+		startAge: 0,
+		endAge: 100,
+		hireDateSince: new Date('2010'),
+		managersOnly: false,
+	});
 
 	if (isLoading) return <div>{t('loading')}</div>;
 
@@ -29,6 +43,26 @@ const Employees: NextPage = () => {
 	}
 
 	employees.sort(makeCompareEmployees(searchInput));
+
+	const filtered = showFilter
+		? filterEmployees(filterParams, employees)
+		: employees;
+
+	const handleFilterParamsChange = (e: ChangeEvent<HTMLInputElement>) => {
+		if (e.target.type === 'checkbox') {
+			setFilterParams((prev) => ({
+				...prev,
+				[e.target.name]: e.target.checked,
+			}));
+		} else if (e.target.type === 'date') {
+			setFilterParams((prev) => ({
+				...prev,
+				[e.target.name]: new Date(e.target.value),
+			}));
+		} else {
+			setFilterParams((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+		}
+	};
 
 	return (
 		<>
@@ -40,7 +74,12 @@ const Employees: NextPage = () => {
 				setSearchInput={setSearchInput}
 			/>
 			<div className={styles.buttons}>
-				<Button customStyles={filterButtonStyles}>{t('filter')}</Button>
+				<Button
+					customStyles={filterButtonStyles}
+					onClick={() => setShowFilter((prev) => !prev)}
+				>
+					{t('filter')}
+				</Button>
 				<Button
 					customStyles={addButtonStyles}
 					onClick={() => {
@@ -50,12 +89,21 @@ const Employees: NextPage = () => {
 					+ {t('add')}
 				</Button>
 			</div>
+			<EmployeeFilter
+				expanded={showFilter}
+				filterParams={filterParams}
+				handleChange={handleFilterParamsChange}
+			/>
 			<Grid cellMinWidth={250}>
 				{employees.length === 0 ? (
 					<div>{t('no-employees')}</div>
 				) : (
-					employees.map((employee) => (
-						<EmployeeCard key={employee.id} {...employee} />
+					filtered.map((employee) => (
+						<EmployeeCard
+							key={employee.id}
+							{...employee}
+							refetch={() => void refetch()}
+						/>
 					))
 				)}
 			</Grid>

@@ -14,7 +14,6 @@ export const calculateTotal = (addedDesserts: Map, desserts: Dessert[]) => {
 };
 
 export const calculateTotalClientExpenses = (orders: OrderWithDesserts[]) => {
-  console.log(orders);
 	return orders.reduce(
 		(sum, order) =>
 			sum +

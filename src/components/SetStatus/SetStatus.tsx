@@ -1,7 +1,7 @@
 import styles from './SetStatus.module.css';
 import { Status } from '@prisma/client';
 import { useTranslation } from 'next-i18next';
-import type { ReactElement } from 'react';
+import { useState, type ReactElement, useRef, useEffect } from 'react';
 import { useCancelOrder } from '~/hooks/order/useCancelOrder';
 import { useChangeStatusToAtWorkOrder } from '~/hooks/order/useChangeStatusToAtWorkOrder';
 import { useCompleteOrder } from '~/hooks/order/useCompleteOrder';
@@ -19,8 +19,12 @@ export const SetStatus = ({ status, refetch, orderId }: StatusProps) => {
 	const changeStatusToAtDelivery = useChangeStatusToAtDeliveryOrder(refetch);
 	const cancel = useCancelOrder(refetch);
 	const complete = useCompleteOrder(refetch);
+
+	const [isOpen, setIsOpen] = useState(false);
+
 	const statuses: ReactElement[] = [];
 	const { t } = useTranslation('orders');
+	const statusRef = useRef<HTMLDivElement>(null);
 	if (status === Status.NEW) {
 		statuses.push(
 			<li
@@ -82,13 +86,36 @@ export const SetStatus = ({ status, refetch, orderId }: StatusProps) => {
 		);
 	}
 
+	useEffect(() => {
+		const handler = (event: MouseEvent) => {
+			if (!statusRef.current) {
+				return;
+			}
+			if (!statusRef.current.contains(event.target as Node)) {
+				setIsOpen(false);
+			}
+		};
+		// `true` will enable the `capture` phase of event handling by browser
+		document.addEventListener('click', handler, true);
+		return () => {
+			document.removeEventListener('click', handler);
+		};
+	}, []);
+
+	const className =
+		status === Status.COMPLETED || status === Status.CANCELED
+			? isOpen
+				? [styles.dropdownContainer, styles.notEditable, styles.open].join(' ')
+				: [styles.dropdownContainer, styles.notEditable].join(' ')
+			: isOpen
+			? [styles.dropdownContainer, styles.open].join(' ')
+			: styles.dropdownContainer;
+
 	return (
 		<div
-			className={
-				status === Status.COMPLETED || status === Status.CANCELED
-					? [styles.dropdownContainer, styles.editable].join(' ')
-					: styles.dropdownContainer
-			}
+			className={className}
+			onClick={() => setIsOpen((prev) => !prev)}
+			ref={statusRef}
 		>
 			<div
 				style={{ color: getColorByStatus(status) }}

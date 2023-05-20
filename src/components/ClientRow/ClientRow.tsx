@@ -11,7 +11,9 @@ export const ClientRow = ({
 	registrationDate,
 	orders,
 	source,
-}: ClientExtended) => {
+	showBirthday,
+	birthdate,
+}: ClientExtended & { showBirthday: boolean }) => {
 	const { t } = useTranslation('clients');
 	const lastOrder = getLastOrder(orders);
 	const manager = getFirstManager(orders);
@@ -34,10 +36,17 @@ export const ClientRow = ({
 			<td className={styles.col5} data-label={t('source')}>
 				{source}
 			</td>
-			<td className={styles.col6} data-label={t('manager')}>
-				<Link href={manager ? `/employees/${manager.id}` : ''}>
-					{manager?.fullName}
-				</Link>
+			<td
+				className={styles.col6}
+				data-label={showBirthday ? t('birthday') : t('manager')}
+			>
+				{showBirthday ? (
+					birthdate.toLocaleDateString()
+				) : (
+					<Link href={manager ? `/employees/${manager.id}` : ''}>
+						{manager?.fullName}
+					</Link>
+				)}
 			</td>
 		</tr>
 	);

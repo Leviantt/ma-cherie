@@ -1,10 +1,8 @@
 import type { GetServerSideProps, NextPage } from 'next';
 
 import styles from './requests.module.css';
-import { Button } from '~/components/Button';
 import { RequestsTable } from '~/components/RequestsTable';
 import { AddressLabel } from '~/components/AddressLabel';
-import { basicButtonStyles } from '~/components/Button/Button';
 import { useState } from 'react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
@@ -19,12 +17,10 @@ const Requests: NextPage = () => {
 		t('gal'),
 	] as const;
 	const [currentAddress, setCurrentAddress] = useState<string>(addresses[0]);
+
 	return (
 		<>
 			<h2>{t('requests')}</h2>
-			<div className={styles.buttons}>
-				<Button customStyles={basicButtonStyles}>{t('export')}</Button>
-			</div>
 			<div className={styles.container}>
 				<RequestsTable address={currentAddress} />
 				<div className={styles.addresses}>

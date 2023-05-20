@@ -5,3 +5,55 @@
   margin-left: auto;
   cursor: pointer;
 }
+
+.dropdownContainer {
+  display: block;
+  position: relative;
+  cursor: pointer;
+}
+
+.update,
+.delete {
+  display: block;
+  font-weight: 700;
+  display: block;
+  text-decoration: none;
+  text-align: center;
+  padding: .45em;
+  background: #fff;
+  width: 140px;
+}
+
+.delete {
+  color: red;
+}
+
+
+.dropdownContainer ul.dropdown {
+  background: #f7f7f7;
+  position: absolute;
+  z-index: 999;
+  display: none;
+  top: 12px;
+  right: 12px;
+}
+
+.dropdownContainer ul .update:hover, 
+.dropdownContainer ul .delete:hover {
+  background: hsl(0, 0%, 95%);
+}
+.dropdownContainer.notEditable ul .status:hover {
+  background: transparent;
+}
+
+.dropdownContainer.notEditable:hover {
+  background: transparent;
+}
+
+.dropdownContainer.open ul.dropdown {
+  display: block;
+}
+
+.dropdownContainer.notEditable:hover ul.dropdown {
+  display: none;
+}

@@ -22,5 +22,11 @@
 	"update-success": "The employee's data has been successfully updated.",
 	"update-error": "Error. The employee's data could not be updated.",
 	"delete-success": "The employee was successfully deleted.",
-	"delete-error": "Error. The employee could not be deleted."
+	"delete-error": "Error. The employee could not be deleted.",
+	"update": "Update",
+	"delete": "Delete",
+	"from": "from",
+	"until": "until",
+	"managers-only": "Managers only",
+	"hire-date-since": "Hire date since"
 }

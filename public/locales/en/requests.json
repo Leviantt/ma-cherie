@@ -25,5 +25,6 @@
 	"delete-success": "Requests for dessert are deleted, because all columns are equal to 0.",
 	"delete-error": "Error. Failed to delete requests for dessert.",
 	"choose-dessert": "Choose new dessert to add requests.",
-	"must-be-non-zero": "At least one of the columns must be non-zero."
+	"must-be-non-zero": "At least one of the columns must be non-zero.",
+	"address": "Address"
 }

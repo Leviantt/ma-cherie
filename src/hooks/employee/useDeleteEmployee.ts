@@ -5,12 +5,15 @@ import toast from 'react-hot-toast';
 import { useTranslation } from 'next-i18next';
 import { api } from '~/utils/api';
 
-export const useDeleteEmployee = () => {
+export const useDeleteEmployee = (refetch?: () => void) => {
 	const router = useRouter();
 	const { t } = useTranslation('employees');
 	return api.employee.delete.useMutation({
 		onSuccess: () => {
 			toast.success(t('delete-success'));
+			if (typeof refetch === 'function') {
+				refetch();
+			}
 			void router.push('/employees');
 		},
 		onError: (error: TRPCClientErrorBase<DefaultErrorShape>) => {

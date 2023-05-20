@@ -1,4 +1,13 @@
 {
 	"title": "Главная",
-  "filter": "Фильтр"
+	"error": "Что-то пошло не так",
+	"loading": "Загрузка...",
+	"orders": "Заказов",
+	"completed-orders": "Завершенных заказов",
+	"canceled-orders": "Отмененных заказов",
+	"clients": "Клиентов",
+	"employees": "Нанято сотрудников",
+	"income": "Доход",
+	"date-from": "Дата: с",
+	"date-until": "Дата: до"
 }

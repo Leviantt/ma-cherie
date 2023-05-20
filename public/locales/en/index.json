@@ -1,4 +1,13 @@
 {
-  "title": "Home",
-  "filter": "Filter"
+	"title": "Home",
+	"error": "Something went wrong",
+	"loading": "Loading...",
+	"orders": "Orders",
+	"completed-orders": "Completed orders",
+	"canceled-orders": "Canceled orders",
+	"clients": "Clients",
+	"employees": "Employees",
+	"income": "Income",
+	"date-from": "Date: from",
+	"date-until": "Date: until"
 }

@@ -10,6 +10,10 @@
   z-index: 1;
 }
 
+.dates button:first-child {
+  margin-right: 1em;
+}
+
 @media (max-width: 1190px) { 
   .dates {
     width: 55%; 
@@ -21,4 +25,18 @@
   .dates {
     width: 100%; 
   }
+
+  .dates button {
+    margin-right: 1em;
+    padding: .5em .5em;
+  }
 }
+
+@media (max-width: 360px) {
+  .dates button {
+    font-size: .9rem;
+    padding: .65em .35em;
+  }
+}
+
+

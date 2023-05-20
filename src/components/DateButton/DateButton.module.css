@@ -1,43 +1,11 @@
-.datePicker {
-  width: 500px !important;
-}
 
-.day {
-  background-color: var(--primary-color) !important;
-  color: #fff;
-}
 
-.calendar {
-  border: 1px solid #c4ddd1 !important;
+.date {
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
-
-.calendar div::after,
-.calendar div::before {
-  content: none !important;
-}
-
-.dateButton {
-  background-color: #a2c1b2;
-  color: #fff;
-  border: none;
-  border-radius: 1em;
-  font-size: 1rem;
-  padding: .5em 1em;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  cursor: pointer;
-  outline: none;
-}
-
-.calendar > div:nth-child(5) > div:nth-child(1){
-  background-color: #e3ece7 !important;
-}
-/* #__next > div > div > div.statistics_dates__kzfig > div:nth-child(1) {
-  width: fit-content !important;
-
-}
-
-#__next > div > div > div.statistics_dates__kzfig > div:nth-child(1) > div {
-  width: fit-content !important;
-} */

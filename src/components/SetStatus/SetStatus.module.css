@@ -7,10 +7,6 @@
   cursor: pointer;
 }
 
-.dropdownContainer {
-  cursor: default;
-}
-
 .status {
   display: block;
   font-weight: 700;
@@ -27,25 +23,26 @@
   left: 5px;
   right: -5px;
 }
+
 .dropdownContainer ul .status:hover {
   background: #dde0df;
 }
-.dropdownContainer.editable ul .status:hover {
+.dropdownContainer.notEditable ul .status:hover {
   background: transparent;
 }
 
-.dropdownContainer:hover {
+.dropdownContainer.open {
   background: #f7f7f7;
 }
 
-.dropdownContainer.editable:hover {
+.dropdownContainer.notEditable:hover {
   background: transparent;
 }
 
-.dropdownContainer:hover ul.dropdown {
+.dropdownContainer.open ul.dropdown {
   display: block;
 }
 
-.dropdownContainer.editable:hover ul.dropdown {
+.dropdownContainer.notEditable:hover ul.dropdown {
   display: none;
 }

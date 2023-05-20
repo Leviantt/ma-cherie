@@ -4,6 +4,9 @@ import styles from './RequestsTable.module.css';
 import { AddRequestRow } from '../AddRequestRow';
 import { filterNewDesserts } from '~/utils/filterNewDesserts';
 import { useTranslation } from 'next-i18next';
+import { Button } from '../Button';
+import { basicButtonStyles } from '../Button/Button';
+import { CSVLink } from 'react-csv';
 
 type RequestsTableProps = {
 	address: string;
@@ -34,10 +37,32 @@ export const RequestsTable = ({ address }: RequestsTableProps) => {
 		return <div>{t('error')}</div>;
 	}
 
+	const headers = [
+		{ label: t('address'), key: 'address' },
+		{ label: t('mon'), key: 'mondayCount' },
+		{ label: t('tue'), key: 'tuesdayCount' },
+		{ label: t('wed'), key: 'wednesdayCount' },
+		{ label: t('thu'), key: 'thursdayCount' },
+		{ label: t('fri'), key: 'fridayCount' },
+		{ label: t('sat'), key: 'saturdayCount' },
+		{ label: t('sun'), key: 'sundayCount' },
+		{ label: t('dessert'), key: 'dessert.name' },
+	];
+
 	requests.sort((a, b) => a.dessert.name.localeCompare(b.dessert.name));
 
 	return (
 		<div className={styles.requestsTableContainer}>
+			<div className={styles.buttons}>
+				<CSVLink
+					headers={headers}
+					data={requests}
+					filename='requests'
+					separator=';'
+				>
+					<Button customStyles={basicButtonStyles}>{t('export')}</Button>
+				</CSVLink>
+			</div>
 			<AddRequestRow
 				refetchRequests={() => void refetch()}
 				address={address}

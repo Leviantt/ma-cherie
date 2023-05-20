@@ -1,0 +1,19 @@
+.container {
+  min-height: 70vh;
+}
+
+.languages {
+  margin: auto;
+  margin-top: 2em;
+  display: flex;
+  flex-direction: column;
+}
+
+.languages label {
+  font-size: 1.5rem;
+  padding: 1em 2em;
+}
+
+.languages label input {
+  margin-right: 1em;
+}

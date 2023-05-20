@@ -35,8 +35,8 @@ export function useNavItems() {
 		},
 		{
 			id: 7,
-			href: '/settings',
-			title: t('settings'),
+			href: '/language',
+			title: t('language'),
 		},
 	];
 }
