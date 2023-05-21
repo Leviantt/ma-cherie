@@ -110,8 +110,8 @@ function NewOrder() {
 
 	if (managersError || clientsError || dessertsError) {
 		console.log(clientsError);
-		console.log(managersError);
 		console.log(dessertsError);
+		console.log(managersError);
 		return <div>{t('error')}</div>;
 	}
 
