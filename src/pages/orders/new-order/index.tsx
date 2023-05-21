@@ -109,8 +109,8 @@ function NewOrder() {
 		return <div>{t('loading')}</div>;
 
 	if (managersError || clientsError || dessertsError) {
-		console.log(clientsError);
 		console.log(managersError);
+		console.log(clientsError);
 		console.log(dessertsError);
 		return <div>{t('error')}</div>;
 	}
