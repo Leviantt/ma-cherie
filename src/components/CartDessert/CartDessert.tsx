@@ -1,6 +1,7 @@
 import styles from './CartDessert.module.css';
 import type { Dessert } from '@prisma/client';
 import { PlusCrossIcon } from '../PlusCrossIcon';
+import { useTranslation } from 'next-i18next';
 
 type CartDessertProps = Dessert & {
 	number?: number;
@@ -22,6 +23,7 @@ export const CartDessert = ({
 	description,
 	disabled,
 }: CartDessertProps) => {
+	const { t } = useTranslation('orders');
 	return (
 		<div className={styles.container}>
 			<div
@@ -32,12 +34,12 @@ export const CartDessert = ({
 				}
 			>
 				<h3>{name}</h3>
-				<p className={styles.price}>Price: {+price}₽</p>
+				<p className={styles.price}>{t('price')}: {+price}₽</p>
 				{number && (
 					<>
 						<div className={styles.count}>
 							<p>
-								Number: {number}
+								{t('amount')}: {number}
 								{!disabled && (
 									<>
 										<button onClick={decrement}>-</button>
@@ -46,7 +48,7 @@ export const CartDessert = ({
 								)}
 							</p>
 						</div>
-						<p className={styles.total}>Total: {number * +price}₽</p>
+						<p className={styles.total}>{t('total')}: {number * +price}₽</p>
 					</>
 				)}
 				<p className={styles.description}>{description}</p>
