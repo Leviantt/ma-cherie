@@ -20,5 +20,8 @@ const config = {
 		defaultLocale: 'ru',
 		localeDetection: false,
 	},
+	images: {
+		domains: ['nfygoxjrvxtbtalgmfdl.supabase.co'],
+	},
 };
 export default config;

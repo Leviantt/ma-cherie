@@ -28,5 +28,6 @@
 	"from": "from",
 	"until": "until",
 	"managers-only": "Managers only",
-	"hire-date-since": "Hire date since"
+	"hire-date-since": "Hire date since",
+	"error-invalid-fields": "Error. Fields are filled in incorrectly."
 }

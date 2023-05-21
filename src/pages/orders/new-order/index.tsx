@@ -254,11 +254,15 @@ function NewOrder() {
 							onChange={(e) => setComment(e.target.value)}
 						/>
 					</div>
-					<div className={[styles.infoGroup, styles.total].join(' ')}>
-						<label>{t('Total')}</label>
-						<h3>{calculateTotal(addedDesserts, desserts) + deliveryPrice}₽</h3>
+					<div className={styles.createButtonContainer}>
+						<div className={[styles.infoGroup, styles.total].join(' ')}>
+							<label>{t('Total')}</label>
+							<h3>
+								{calculateTotal(addedDesserts, desserts) + deliveryPrice}₽
+							</h3>
+						</div>
+						<Button onClick={saveOrder}>{t('create')}</Button>
 					</div>
-					<Button onClick={saveOrder}>{t('create')}</Button>
 				</Grid>
 				<CartDessertList>
 					{added.map((d) => (

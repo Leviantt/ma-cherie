@@ -28,5 +28,6 @@
 	"from": "от",
 	"until": "до",
 	"managers-only": "Только менеджеры",
-	"hire-date-since": "Устроен(а) с"
+	"hire-date-since": "Устроен(а) с",
+	"error-invalid-fields": "Ошибка. Поля заполнены некорректно."
 }

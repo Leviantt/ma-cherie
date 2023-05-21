@@ -1,7 +1,6 @@
 import type { GetServerSideProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
-
 import { Employee } from '~/components/Employee';
 
 function NewEmployee() {

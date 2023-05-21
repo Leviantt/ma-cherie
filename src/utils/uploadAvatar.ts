@@ -1,4 +1,6 @@
-import type { SetStateAction } from "react";
+import type { SetStateAction } from 'react';
+import { v4 } from 'uuid';
+import { supabase } from '~/server/supabaseClient';
 
 export const uploadToClient = (
 	event: React.ChangeEvent<HTMLInputElement>,
@@ -16,18 +18,23 @@ export const uploadToClient = (
 };
 
 export const uploadToServer = async (
-	pathToAvatarPhoto: string,
-	avatar: File | undefined
-) => {
-	const body = new FormData();
-	if (avatar) {
-		body.append('file', avatar);
-		body.append('filepath', pathToAvatarPhoto);
-		await fetch('/api/upload-image', {
-			method: 'POST',
-			body,
-		});
-	} else {
-		console.log('Avatar file was not provided');
+	avatar: File,
+	previousAvatarPath?: string
+): Promise<string> => {
+	const fileName = `${v4()}.jpg`;
+	const { error } = await supabase.storage
+		.from('avatars')
+		.upload(fileName, avatar, { upsert: true });
+
+	if (error) {
+		throw error;
 	}
+
+	if (previousAvatarPath && previousAvatarPath !== '/images/default.jpg') {
+		const previousAvatarName = previousAvatarPath.split('/').pop();
+		void supabase.storage.from('avatars').remove([previousAvatarName ?? '']);
+	}
+
+	const { data } = supabase.storage.from('avatars').getPublicUrl(fileName);
+	return data.publicUrl;
 };

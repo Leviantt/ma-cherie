@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import type { Employee as EmployeeType } from '@prisma/client';
 import { z } from 'zod';
-import { v4 } from 'uuid';
 import { useTranslation } from 'next-i18next';
 
 import styles from './Employee.module.css';
@@ -50,8 +49,10 @@ export const Employee = (employee: Partial<EmployeeType>) => {
 			hireDate,
 		};
 		if (avatar) {
-			newValues.pathToAvatarPhoto = `/images/${v4()}.jpg`;
-			await uploadToServer(newValues.pathToAvatarPhoto, avatar);
+			newValues.pathToAvatarPhoto = await uploadToServer(
+				avatar,
+				employee.pathToAvatarPhoto
+			);
 		}
 
 		if (employee.id) {
@@ -81,7 +82,7 @@ export const Employee = (employee: Partial<EmployeeType>) => {
 				});
 			} catch (error) {
 				console.log(error);
-				toast.error('Ошибка. Поля заполнены некорректно.');
+				toast.error(t('error-invalid-fields'));
 			}
 		}
 	};

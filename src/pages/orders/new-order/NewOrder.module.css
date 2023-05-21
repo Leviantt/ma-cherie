@@ -101,3 +101,15 @@
   margin: .5em auto 1.5em;
   width: 92%;
 }
+
+.createButtonContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  grid-column: 1 / -1;
+}
+
+.createButtonContainer button {
+  margin-top: auto;
+  margin-bottom: auto;
+}
