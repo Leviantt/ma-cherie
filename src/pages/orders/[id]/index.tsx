@@ -120,7 +120,7 @@ function DetailedOrder() {
 						/>
 					</div>
 					<div className={[styles.infoGroup, styles.total].join(' ')}>
-						<label>{t('Total')}</label>
+						<label>{t('total')}</label>
 						<h3>{getTotalPrice(order.desserts) + +order.deliveryPrice}₽</h3>
 					</div>
 				</Grid>

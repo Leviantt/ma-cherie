@@ -46,5 +46,6 @@
 	"manager-phone": "Телефон менеджера",
 	"client-phone": "Телефон клиента",
 	"received-at": "Время получения",
-	"delete-order": "Удалить заказ"
+	"delete-order": "Удалить заказ",
+	"amount": "Количество"
 }

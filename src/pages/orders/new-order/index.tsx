@@ -255,7 +255,7 @@ function NewOrder() {
 						/>
 					</div>
 					<div className={[styles.infoGroup, styles.total].join(' ')}>
-						<label>{t('Total')}</label>
+						<label>{t('total')}</label>
 						<h3>{calculateTotal(addedDesserts, desserts) + deliveryPrice}₽</h3>
 					</div>
 					<Button onClick={saveOrder}>{t('create')}</Button>

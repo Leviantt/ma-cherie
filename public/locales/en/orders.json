@@ -46,5 +46,6 @@
 	"manager-phone": "Manager phone",
 	"client-phone": "Client phone",
 	"received-at": "Received at",
-	"delete-order": "Delete order"
+	"delete-order": "Delete order",
+	"amount": "Number"
 }
